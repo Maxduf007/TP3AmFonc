@@ -79,7 +79,7 @@ namespace Stratego
          if (this.EstVoisineDe(caseCible))
          {
             if (!caseCible.EstOccupe()
-               || this.Occupant.couleur != caseCible.Occupant.couleur)
+               || !this.Occupant.EstDeCouleur(caseCible.Occupant.couleur))
             {
                resultat = true;
             }

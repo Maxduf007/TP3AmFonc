@@ -333,7 +333,7 @@ namespace Stratego
          labelAffichage.FontSize = TAILLE_CASES_GRILLE * 0.6;
          labelAffichage.FontWeight = FontWeights.Bold;
 
-         if (pieceAffichage.couleur == Couleur.Rouge)
+         if (pieceAffichage.EstDeCouleur(Couleur.Rouge))
          {
             labelAffichage.Foreground = Brushes.DarkRed;
          }
