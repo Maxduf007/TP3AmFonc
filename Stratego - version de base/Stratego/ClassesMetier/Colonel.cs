@@ -8,7 +8,7 @@ namespace Stratego
 {
    public class Colonel : Piece
    {
-      public Colonel(string couleurPiece) : base(couleurPiece, 8)
+      public Colonel(Couleur couleurPiece) : base(couleurPiece, 8)
       {
       }
    }

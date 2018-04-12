@@ -33,7 +33,7 @@ namespace Stratego
 
       private Rectangle SelectionActive { get; set; }
 
-      public string TourJeu { get; private set; }
+      public Couleur TourJeu { get; private set; }
 
       #region Code relié au patron observateur
 
@@ -96,27 +96,27 @@ namespace Stratego
          /*
          ReponseDeplacement deplacement;
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(0, 6), new Point(0, 5)); // Deplacement
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(0, 6), new Coordonnee(0, 5)); // Deplacement
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(0, 5), new Point(-1, 5)); // Coord invalide
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(2, 6), new Point(2, 5)); // Lac
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(0, 5), new Coordonnee(-1, 5)); // Coord invalide
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 6), new Coordonnee(2, 5)); // Lac
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(2, 6), new Point(3, 6)); // Piece vs sa propre couleur
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 6), new Coordonnee(3, 6)); // Piece vs sa propre couleur
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(1, 6), new Point(1, 5));
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(1, 5), new Point(1, 4));
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(1, 4), new Point(1, 3)); // Prise par attaquant
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 6), new Coordonnee(1, 5));
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 5), new Coordonnee(1, 4));
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 4), new Coordonnee(1, 3)); // Prise par attaquant
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(1, 3), new Point(1, 2));
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(1, 2), new Point(1, 1));
-         // deplacement = GrillePartie.ResoudreDeplacement(new Point(1, 1), new Point(1, 0)); // 2 pièces éliminées
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(1, 1), new Point(2, 1));
-         deplacement = GrillePartie.ResoudreDeplacement(new Point(2, 1), new Point(2, 0)); // Attaquant éliminé
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 3), new Coordonnee(1, 2));
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 2), new Coordonnee(1, 1));
+         // deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 1), new Coordonnee(1, 0)); // 2 pièces éliminées
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 1), new Coordonnee(2, 1));
+         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 1), new Coordonnee(2, 0)); // Attaquant éliminé
          */
 
          #endregion
 
-         TourJeu = "Rouge";
+         TourJeu = Couleur.Rouge;
 
          // Initialise la liste d'observateurs.
          observers = new List<IObserver<JeuStrategoControl>>();
@@ -131,20 +131,20 @@ namespace Stratego
       /// </summary>
       private void PositionnerPieces()
       {
-         List<Piece> piecesRouges = new List<Piece>() { new Marechal("Rouge"), new Capitaine("Rouge"), new Lieutenant("Rouge"), new Demineur("Rouge"), new Eclaireur("Rouge"), new Capitaine("Rouge"), new Eclaireur("Rouge"), new Eclaireur("Rouge"), new Eclaireur("Rouge"), new Capitaine("Rouge")
-                                                , new Sergent("Rouge"), new Eclaireur("Rouge"), new Colonel("Rouge"), new Colonel("Rouge"), new General("Rouge"), new Eclaireur("Rouge"), new Sergent("Rouge"), new Bombe("Rouge"), new Bombe("Rouge"), new Lieutenant("Rouge")
-                                                , new Commandant("Rouge"), new Eclaireur("Rouge"), new Commandant("Rouge"), new Espion("Rouge"), new Capitaine("Rouge"), new Lieutenant("Rouge"), new Bombe("Rouge"), new Sergent("Rouge"), new Lieutenant("Rouge"), new Eclaireur("Rouge")
-                                                , new Commandant("Rouge"), new Demineur("Rouge"), new Demineur("Rouge"), new Demineur("Rouge"), new Sergent("Rouge"), new Bombe("Rouge"), new Drapeau("Rouge"), new Bombe("Rouge"), new Bombe("Rouge"), new Demineur("Rouge")
+         List<Piece> piecesRouges = new List<Piece>() { new Marechal(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge)
+                                                , new Sergent(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Colonel(Couleur.Rouge), new Colonel(Couleur.Rouge), new General(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Lieutenant(Couleur.Rouge)
+                                                , new Commandant(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Commandant(Couleur.Rouge), new Espion(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Bombe(Couleur.Rouge), new Sergent(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Eclaireur(Couleur.Rouge)
+                                                , new Commandant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Drapeau(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Demineur(Couleur.Rouge)
                                                 };
 
-         List<Piece> piecesBleues = new List<Piece>() { new Commandant("Bleu"), new Lieutenant("Bleu"), new Demineur("Bleu"), new Demineur("Bleu"), new Demineur("Bleu"), new Capitaine("Bleu"), new Bombe("Bleu"), new Sergent("Bleu"), new Bombe("Bleu"), new Drapeau("Bleu")
-                                                , new Capitaine("Bleu"), new Eclaireur("Bleu"), new Capitaine("Bleu"), new Sergent("Bleu"), new Lieutenant("Bleu"), new Eclaireur("Bleu"), new Eclaireur("Bleu"), new Bombe("Bleu"), new Sergent("Bleu"), new Bombe("Bleu")
-                                                , new Eclaireur("Bleu"), new Commandant("Bleu"), new Eclaireur("Bleu"), new Eclaireur("Bleu"), new Marechal("Bleu"), new Commandant("Bleu"), new Capitaine("Bleu"), new Demineur("Bleu"), new Bombe("Bleu"), new Sergent("Bleu")
-                                                , new Lieutenant("Bleu"), new Eclaireur("Bleu"), new Colonel("Bleu"), new Demineur("Bleu"), new Lieutenant("Bleu"), new Eclaireur("Bleu"), new Colonel("Bleu"), new Espion("Bleu"), new General("Bleu"), new Bombe("Bleu")
+         List<Piece> piecesBleues = new List<Piece>() { new Commandant(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu), new Drapeau(Couleur.Bleu)
+                                                , new Capitaine(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Sergent(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu)
+                                                , new Eclaireur(Couleur.Bleu), new Commandant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Marechal(Couleur.Bleu), new Commandant(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Demineur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu)
+                                                , new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Demineur(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Espion(Couleur.Bleu), new General(Couleur.Bleu), new Bombe(Couleur.Bleu)
                                                 };
 
-         GrillePartie.PositionnerPieces(piecesRouges, "Rouge");
-         GrillePartie.PositionnerPieces(piecesBleues, "Bleu");
+         GrillePartie.PositionnerPieces(piecesRouges, Couleur.Rouge);
+         GrillePartie.PositionnerPieces(piecesBleues, Couleur.Bleu);
       }
 
       private void DiviserGrilleJeu()
@@ -227,7 +227,7 @@ namespace Stratego
          rect.Width = TAILLE_CASES_GRILLE;
          rect.Height = TAILLE_CASES_GRILLE;
 
-         if (GrillePartie.EstCoordonneeLac(new Point(colonne, rangee)))
+         if (GrillePartie.EstCoordonneeLac(new Coordonnee(colonne, rangee)))
          {
             rect.Fill = Brushes.CornflowerBlue;
          }
@@ -281,7 +281,7 @@ namespace Stratego
 
       private void InitialiserAffichagePieces()
       {
-         Point position;
+         Coordonnee position;
          Label labelAffichage;
 
          GrillePieces = new List<List<Label>>();
@@ -292,7 +292,7 @@ namespace Stratego
 
             for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
             {
-               position = new Point(i, j);
+               position = new Coordonnee(i, j);
 
                if (GrillePartie.EstCaseOccupee(position))
                {
@@ -333,7 +333,7 @@ namespace Stratego
          labelAffichage.FontSize = TAILLE_CASES_GRILLE * 0.6;
          labelAffichage.FontWeight = FontWeights.Bold;
 
-         if (pieceAffichage.Couleur == "Rouge")
+         if (pieceAffichage.couleur == Couleur.Rouge)
          {
             labelAffichage.Foreground = Brushes.DarkRed;
          }
@@ -354,16 +354,16 @@ namespace Stratego
       {
          Rectangle caseSelectionnee = (Rectangle)sender;
 
-         Point pointSelectionne = new Point(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
-         Point pointActif;
+         Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
+         Coordonnee pointActif;
 
          ReponseDeplacement reponse;
 
-         if (TourJeu == "Rouge")
+         if (TourJeu == Couleur.Rouge)
          {
             if (grdPartie.Children.Contains(SelectionActive))
             {
-               pointActif = new Point(Grid.GetColumn(SelectionActive), Grid.GetRow(SelectionActive));
+               pointActif = new Coordonnee(Grid.GetColumn(SelectionActive), Grid.GetRow(SelectionActive));
 
                if (pointSelectionne == pointActif)
                {
@@ -382,7 +382,7 @@ namespace Stratego
             else
             {
                if (GrillePartie.EstCaseOccupee(pointSelectionne)
-                  && GrillePartie.ObtenirCouleurPiece(pointSelectionne) == "Rouge")
+                  && GrillePartie.ObtenirCouleurPiece(pointSelectionne) == Couleur.Rouge)
                {
                   Grid.SetColumn(SelectionActive, (int)pointSelectionne.X);
                   Grid.SetRow(SelectionActive, (int)pointSelectionne.Y);
@@ -393,7 +393,7 @@ namespace Stratego
          }
       }
 
-      public ReponseDeplacement ExecuterCoup(Point caseDepart, Point caseCible)
+      public ReponseDeplacement ExecuterCoup(Coordonnee caseDepart, Coordonnee caseCible)
       {
          Thread executionIA = new Thread(LancerIA);
 
@@ -437,7 +437,7 @@ namespace Stratego
                }
 
                // Permet de faire jouer l'IA.
-               if (TourJeu == "Rouge")
+               if (TourJeu == Couleur.Rouge)
                {
                   ChangerTourJeu();
                   executionIA.Start();
@@ -469,13 +469,13 @@ namespace Stratego
 
       public void ChangerTourJeu()
       { 
-         if (TourJeu == "Rouge")
+         if (TourJeu == Couleur.Rouge)
          {
-            TourJeu = "Bleu";
+            TourJeu = Couleur.Bleu;
          }
          else
          {
-            TourJeu = "Rouge";
+            TourJeu = Couleur.Rouge;
          }
       }
    }

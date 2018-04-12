@@ -8,7 +8,7 @@ namespace Stratego
 {
    public class Marechal : Piece
    {
-      public Marechal(string couleurPiece) : base(couleurPiece, 10)
+      public Marechal(Couleur couleurPiece) : base(couleurPiece, 10)
       {
       }
       

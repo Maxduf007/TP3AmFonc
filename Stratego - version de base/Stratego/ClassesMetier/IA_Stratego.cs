@@ -41,11 +41,11 @@ namespace Stratego
 
       private JeuStrategoControl Jeu { get; set; }
 
-      private string CouleurIA { get; set; }
+      private Couleur CouleurIA { get; set; }
 
-      public IA_Stratego(JeuStrategoControl jeu) : this(jeu, "Bleu") { }
+      public IA_Stratego(JeuStrategoControl jeu) : this(jeu, Couleur.Bleu) { }
 
-      public IA_Stratego(JeuStrategoControl jeu, string couleur)
+      public IA_Stratego(JeuStrategoControl jeu, Couleur couleur)
       {
          Jeu = jeu;
          CouleurIA = couleur;
@@ -56,7 +56,7 @@ namespace Stratego
 
       private void JouerCoup(JeuStrategoControl jeu)
       {
-         List<List<Point>> ListeCoupsPermis;
+         List<List<Coordonnee>> ListeCoupsPermis;
          Random rnd = new Random(DateTime.Now.Millisecond);
          int choixRnd;
 
@@ -66,46 +66,46 @@ namespace Stratego
          jeu.ExecuterCoup(ListeCoupsPermis[choixRnd][0], ListeCoupsPermis[choixRnd][1]);
       }
 
-      private List<List<Point>> TrouverCoupsPermis(GrilleJeu grillePartie)
+      private List<List<Coordonnee>> TrouverCoupsPermis(GrilleJeu grillePartie)
       {
-         List<List<Point>> listeCoups = new List<List<Point>>();
-         Point pointDepart, pointCible;
+         List<List<Coordonnee>> listeCoups = new List<List<Coordonnee>>();
+         Coordonnee coordonneeDepart, coordonneeCible;
 
          for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
          {
             for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
             {
-               pointDepart = new Point(i, j);
+               coordonneeDepart = new Coordonnee(i, j);
 
-               if (Jeu.GrillePartie.EstCaseOccupee(pointDepart) 
-                  && Jeu.GrillePartie.ObtenirCouleurPiece(pointDepart) == "Bleu")
+               if (Jeu.GrillePartie.EstCaseOccupee(coordonneeDepart) 
+                  && Jeu.GrillePartie.ObtenirCouleurPiece(coordonneeDepart) == Couleur.Bleu)
                {
                   // Valider un coup vers la gauche.
-                  pointCible = new Point(pointDepart.X - 1, pointDepart.Y);
-                  if (Jeu.GrillePartie.EstDeplacementPermis(pointDepart, pointCible))
+                  coordonneeCible = new Coordonnee(coordonneeDepart.X - 1, coordonneeDepart.Y);
+                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible))
                   {
-                     listeCoups.Add(new List<Point>() { pointDepart, pointCible });
+                     listeCoups.Add(new List<Coordonnee>() { coordonneeDepart, coordonneeCible });
                   }
 
                   // Valider un coup vers l'avant.
-                  pointCible = new Point(pointDepart.X, pointDepart.Y - 1);
-                  if (Jeu.GrillePartie.EstDeplacementPermis(pointDepart, pointCible))
+                  coordonneeCible = new Coordonnee(coordonneeDepart.X, coordonneeDepart.Y - 1);
+                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible))
                   {
-                     listeCoups.Add(new List<Point>() { pointDepart, pointCible });
+                     listeCoups.Add(new List<Coordonnee>() { coordonneeDepart, coordonneeCible });
                   }
 
                   // Valider un coup vers la droite.
-                  pointCible = new Point(pointDepart.X + 1, pointDepart.Y);
-                  if (Jeu.GrillePartie.EstDeplacementPermis(pointDepart, pointCible))
+                  coordonneeCible = new Coordonnee(coordonneeDepart.X + 1, coordonneeDepart.Y);
+                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible))
                   {
-                     listeCoups.Add(new List<Point>() { pointDepart, pointCible });
+                     listeCoups.Add(new List<Coordonnee>() { coordonneeDepart, coordonneeCible });
                   }
 
                   // Valider un coup vers l'arrière.
-                  pointCible = new Point(pointDepart.X, pointDepart.Y + 1);
-                  if (Jeu.GrillePartie.EstDeplacementPermis(pointDepart, pointCible))
+                  coordonneeCible = new Coordonnee(coordonneeDepart.X, coordonneeDepart.Y + 1);
+                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible))
                   {
-                     listeCoups.Add(new List<Point>() { pointDepart, pointCible });
+                     listeCoups.Add(new List<Coordonnee>() { coordonneeDepart, coordonneeCible });
                   }
                }
             }

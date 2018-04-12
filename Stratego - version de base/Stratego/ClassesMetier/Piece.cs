@@ -8,18 +8,18 @@ namespace Stratego
 {
    public abstract class Piece
    {
-      public string Couleur { get; private set; }
+      public Couleur couleur { get; private set; }
       public int Force { get; private set; }
 
-      public Piece(string couleurPiece, int forcePiece)
+      public Piece(Couleur couleurPiece, int forcePiece)
       {
-         Couleur = couleurPiece;
+         couleur = couleurPiece;
          Force = forcePiece;
       }
 
       public bool EstRouge()
       {
-         return (Couleur == "Rouge");
+         return (couleur == Couleur.Rouge);
       }
 
       public bool EstBleu()

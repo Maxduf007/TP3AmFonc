@@ -124,19 +124,19 @@ namespace Stratego
          }
       }
 
-      public ReponseDeplacement ResoudreDeplacement(Point pointDepart, Point pointCible)
+      public ReponseDeplacement ResoudreDeplacement(Coordonnee coordonneeDepart, Coordonnee coordonneeCible)
       {
          ReponseDeplacement reponse = new ReponseDeplacement();
          reponse.PiecesEliminees = new List<Piece>();
 
          CaseJeu caseDepart, caseCible;
 
-         if (EstCoordonneeValide(pointDepart) && EstCoordonneeValide(pointCible))
+         if (EstCoordonneeValide(coordonneeDepart) && EstCoordonneeValide(coordonneeCible))
          {
-            caseDepart = GrilleCases[(int)pointDepart.X][(int)pointDepart.Y];
-            caseCible = GrilleCases[(int)pointCible.X][(int)pointCible.Y];
+            caseDepart = GrilleCases[(int)coordonneeDepart.X][(int)coordonneeDepart.Y];
+            caseCible = GrilleCases[(int)coordonneeCible.X][(int)coordonneeCible.Y];
 
-            if (caseDepart.EstOccupe() && EstDeplacementPermis(pointDepart, pointCible))
+            if (caseDepart.EstOccupe() && EstDeplacementPermis(coordonneeDepart, coordonneeCible))
             {
                // Faire le déplacement.
                reponse.PiecesEliminees = caseCible.ResoudreAttaque(caseDepart.Occupant);
@@ -157,17 +157,17 @@ namespace Stratego
          return reponse;
       }
 
-      public bool EstDeplacementPermis(Point pointDepart, Point pointCible)
+      public bool EstDeplacementPermis(Coordonnee coordonneeDepart, Coordonnee coordonneeCible)
       {
-         return ( EstCoordonneeValide(pointDepart) && EstCoordonneeValide(pointCible)
-                && !EstCoordonneeLac(pointDepart) && !EstCoordonneeLac(pointCible)
-                && GrilleCases[(int)pointDepart.X][(int)pointDepart.Y].EstDeplacementLegal(GrilleCases[(int)pointCible.X][(int)pointCible.Y])
+         return ( EstCoordonneeValide(coordonneeDepart) && EstCoordonneeValide(coordonneeCible)
+                && !EstCoordonneeLac(coordonneeDepart) && !EstCoordonneeLac(coordonneeCible)
+                && GrilleCases[(int)coordonneeDepart.X][(int)coordonneeDepart.Y].EstDeplacementLegal(GrilleCases[(int)coordonneeCible.X][(int)coordonneeCible.Y])
                 );
       }
 
-      private bool EstCoordonneeValide(Point p)
+      private bool EstCoordonneeValide(Coordonnee c)
       {
-         if ((p.X >= 0 && p.X < TAILLE_GRILLE_JEU) && (p.Y >= 0 && p.Y < TAILLE_GRILLE_JEU))
+         if ((c.X >= 0 && c.X < TAILLE_GRILLE_JEU) && (c.Y >= 0 && c.Y < TAILLE_GRILLE_JEU))
          {
             return true;
          }
@@ -177,10 +177,10 @@ namespace Stratego
          }
       }
 
-      public bool EstCoordonneeLac(Point p)
+      public bool EstCoordonneeLac(Coordonnee c)
       {
          // Coordonnées des lacs : I (2, 3, 6, 7) - J (4, 5)
-         if ((p.X == 2 || p.X == 3 || p.X == 6 || p.X == 7) && (p.Y == 4 || p.Y == 5))
+         if ((c.X == 2 || c.X == 3 || c.X == 6 || c.X == 7) && (c.Y == 4 || c.Y == 5))
          {
             return true;
          }
@@ -190,19 +190,19 @@ namespace Stratego
          }
       }
 
-      public bool EstCaseOccupee(Point p)
+      public bool EstCaseOccupee(Coordonnee c)
       {
-         return ((GrilleCases[(int)p.X][(int)p.Y]).EstOccupe());
+         return ((GrilleCases[(int)c.X][(int)c.Y]).EstOccupe());
       }
 
-      public bool PositionnerPieces(List<Piece> lstPieces, string couleurJoueur)
+      public bool PositionnerPieces(List<Piece> lstPieces, Couleur couleurJoueur)
       {
          bool positionnementApplique = false;
 
          int compteur = 0;
          int decallage = 0;
          
-         if (couleurJoueur == "Rouge")
+         if (couleurJoueur == Couleur.Rouge)
          {
             decallage = 6;
          }
@@ -225,7 +225,7 @@ namespace Stratego
          return positionnementApplique;
       }
 
-      private bool PositionnementFait(string couleurJoueur)
+      private bool PositionnementFait(Couleur couleurJoueur)
       {
          bool pieceTrouvee = false;
 
@@ -234,8 +234,8 @@ namespace Stratego
             for (int j = 0; j < TAILLE_GRILLE_JEU; j++)
             {
                if (GrilleCases[i][j].Occupant != null 
-                     && ((GrilleCases[i][j].Occupant.EstRouge() && couleurJoueur == "Rouge")
-                        || (GrilleCases[i][j].Occupant.EstBleu() && couleurJoueur == "Bleu")))
+                     && ((GrilleCases[i][j].Occupant.EstRouge() && couleurJoueur == Couleur.Rouge)
+                        || (GrilleCases[i][j].Occupant.EstBleu() && couleurJoueur == Couleur.Bleu)))
                {
                   pieceTrouvee = true;
 
@@ -249,14 +249,14 @@ namespace Stratego
          return pieceTrouvee;
       }
 
-      public Piece ObtenirPiece(Point p)
+      public Piece ObtenirPiece(Coordonnee c)
       {
-         return GrilleCases[(int)p.X][(int)p.Y].Occupant;
+         return GrilleCases[(int)c.X][(int)c.Y].Occupant;
       }
 
-      public string ObtenirCouleurPiece(Point p)
+      public Couleur ObtenirCouleurPiece(Coordonnee c)
       {
-         return GrilleCases[(int)p.X][(int)p.Y].Occupant.Couleur;
+         return GrilleCases[(int)c.X][(int)c.Y].Occupant.couleur;
       }
 
    }

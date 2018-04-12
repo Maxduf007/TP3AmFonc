@@ -8,7 +8,7 @@ namespace Stratego
 {
    public class Eclaireur : Piece
    {
-      public Eclaireur(string couleurPiece) : base(couleurPiece, 2)
+      public Eclaireur(Couleur couleurPiece) : base(couleurPiece, 2)
       {                          
       }
    }

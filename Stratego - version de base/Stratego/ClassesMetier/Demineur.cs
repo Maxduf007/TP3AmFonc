@@ -8,7 +8,7 @@ namespace Stratego
 {
    public class Demineur : Piece
    {
-      public Demineur(string couleurPiece) : base(couleurPiece, 3)
+      public Demineur(Couleur couleurPiece) : base(couleurPiece, 3)
       {
       }
    }
