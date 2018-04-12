@@ -65,6 +65,7 @@
     <Compile Include="ClassesMetier\Espion.cs" />
     <Compile Include="ClassesMetier\GrilleJeu.cs" />
     <Compile Include="ClassesMetier\IA_Stratego.cs" />
+    <Compile Include="ClassesMetier\PieceMobile.cs" />
     <Compile Include="ClassesMetier\ReponseDeplacement.cs" />
     <Compile Include="ClassesMetier\Sergent.cs" />
     <Page Include="JeuStrategoControl.xaml">

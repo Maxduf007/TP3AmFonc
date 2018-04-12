@@ -327,7 +327,8 @@ namespace Stratego
          }
          else
          {
-            labelAffichage.Content = pieceAffichage.Force;
+            PieceMobile PieceMobileAffichage = (PieceMobile)pieceAffichage;
+            labelAffichage.Content = PieceMobileAffichage.Force;
          }
 
          labelAffichage.FontSize = TAILLE_CASES_GRILLE * 0.6;

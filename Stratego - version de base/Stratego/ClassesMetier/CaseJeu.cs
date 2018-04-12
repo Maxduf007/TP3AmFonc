@@ -27,27 +27,48 @@ namespace Stratego
          return (Occupant != null);
       }
 
-      public List<Piece> ResoudreAttaque(Piece attaquant)
+      public List<Piece> ResoudreAttaque(PieceMobile attaquant)
       {
          List<Piece> piecesEliminees = new List<Piece>();
 
          if (Occupant != null)
          {
-            if (attaquant.Force < Occupant.Force)
+                // Dans le cas que l'occupant est une pièce mobile, on compare la force
+            if(Occupant is PieceMobile)
             {
-               piecesEliminees.Add(attaquant);
-            }
-            else if (attaquant.Force > Occupant.Force)
-            {
-               piecesEliminees.Add(Occupant);
-               Occupant = attaquant;
+                PieceMobile OccupantMobile = (PieceMobile)Occupant;
+
+                if (attaquant.Force < OccupantMobile.Force)
+                {
+                    piecesEliminees.Add(attaquant);
+                }
+                else if (attaquant.Force > OccupantMobile.Force)
+                {
+                    piecesEliminees.Add(Occupant);
+                    Occupant = attaquant;
+                }
+                else
+                {
+                    piecesEliminees.Add(attaquant);
+                    piecesEliminees.Add(Occupant);
+                    Occupant = null;
+                }
             }
             else
             {
-               piecesEliminees.Add(attaquant);
-               piecesEliminees.Add(Occupant);
-               Occupant = null;
+                if(Occupant is Bombe)
+                {
+                    if (attaquant is Demineur)
+                        piecesEliminees.Add(Occupant);
+                    else
+                        piecesEliminees.Add(attaquant);
+                }
+                else
+                {
+                    piecesEliminees.Add(Occupant);
+                }
             }
+            
          }
          else
          { 

@@ -139,7 +139,9 @@ namespace Stratego
             if (caseDepart.EstOccupe() && EstDeplacementPermis(coordonneeDepart, coordonneeCible))
             {
                // Faire le déplacement.
-               reponse.PiecesEliminees = caseCible.ResoudreAttaque(caseDepart.Occupant);
+               if(caseDepart.Occupant is PieceMobile)
+                    reponse.PiecesEliminees = caseCible.ResoudreAttaque((PieceMobile)caseDepart.Occupant);
+
                caseDepart.Occupant = null;
 
                reponse.DeplacementFait = true;
@@ -234,8 +236,8 @@ namespace Stratego
             for (int j = 0; j < TAILLE_GRILLE_JEU; j++)
             {
                if (GrilleCases[i][j].Occupant != null 
-                     && ((GrilleCases[i][j].Occupant.EstRouge() && couleurJoueur == Couleur.Rouge)
-                        || (GrilleCases[i][j].Occupant.EstBleu() && couleurJoueur == Couleur.Bleu)))
+                     && ((GrilleCases[i][j].Occupant.EstDeCouleur(Couleur.Rouge) && couleurJoueur == Couleur.Rouge)
+                        || (GrilleCases[i][j].Occupant.EstDeCouleur(Couleur.Bleu) && couleurJoueur == Couleur.Bleu)))
                {
                   pieceTrouvee = true;
 

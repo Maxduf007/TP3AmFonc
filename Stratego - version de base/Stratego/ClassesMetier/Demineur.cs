@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
-   public class Demineur : Piece
+   public class Demineur : PieceMobile
    {
       public Demineur(Couleur couleurPiece) : base(couleurPiece, 3)
       {

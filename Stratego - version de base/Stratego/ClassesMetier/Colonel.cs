@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
-   public class Colonel : Piece
+   public class Colonel : PieceMobile
    {
       public Colonel(Couleur couleurPiece) : base(couleurPiece, 8)
       {
