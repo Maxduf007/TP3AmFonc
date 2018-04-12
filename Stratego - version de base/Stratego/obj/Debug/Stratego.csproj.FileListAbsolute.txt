@@ -1,0 +1,34 @@
+D:\Visual Studio 2017\Projects\Stratego\Stratego\bin\Debug\Stratego.exe.config
+D:\Visual Studio 2017\Projects\Stratego\Stratego\bin\Debug\Stratego.exe
+D:\Visual Studio 2017\Projects\Stratego\Stratego\bin\Debug\Stratego.pdb
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\MainWindow.g.cs
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\App.g.cs
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego_MarkupCompile.cache
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego_MarkupCompile.lref
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\MainWindow.baml
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego.g.resources
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego.Properties.Resources.resources
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego.csproj.GenerateResource.Cache
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego.exe
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego.pdb
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\JeuStrategoControl.g.cs
+D:\Visual Studio 2017\Projects\Stratego\Stratego\obj\Debug\JeuStrategoControl.baml
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\bin\Debug\Stratego.exe.config
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\bin\Debug\Stratego.exe
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\bin\Debug\Stratego.pdb
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\JeuStrategoControl.g.cs
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\MainWindow.g.cs
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\App.g.cs
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego_MarkupCompile.cache
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego_MarkupCompile.lref
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\JeuStrategoControl.baml
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\MainWindow.baml
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.g.resources
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.Properties.Resources.resources
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.csproj.GenerateResource.Cache
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.csproj.CoreCompileInputs.cache
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.exe
+H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.pdb
