@@ -16,5 +16,15 @@ namespace Stratego
             X = x;
             Y = y;
         }
+
+        /// <summary>
+        /// Permet de vérifier si deux coordonnees ont les mêmes x et y
+        /// </summary>
+        /// <param name="coordonnee">l'objet coordonnee avec laquel on compare</param>
+        /// <returns></returns>
+        public bool EstEgal(Coordonnee coordonnee)
+        {
+            return (X == coordonnee.X && Y == coordonnee.Y);
+        }
     }
 }

@@ -353,6 +353,7 @@ namespace Stratego
 
       private void ResoudreSelectionCase(object sender, MouseButtonEventArgs e)
       {
+            // Reçoit le rectangle sélectionner par la souris
          Rectangle caseSelectionnee = (Rectangle)sender;
 
          Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
@@ -366,12 +367,14 @@ namespace Stratego
             {
                pointActif = new Coordonnee(Grid.GetColumn(SelectionActive), Grid.GetRow(SelectionActive));
 
-               if (pointSelectionne == pointActif)
+               // Permet de déselectionner notre choix si on change d'idée
+               if (pointSelectionne.EstEgal(pointActif))
                {
                   grdPartie.Children.Remove(SelectionActive);
                }
                else
                {
+                   // On tente d'exécuter le coup
                   reponse = ExecuterCoup(pointActif, pointSelectionne);
 
                   if (reponse.DeplacementFait)

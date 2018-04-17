@@ -49,3 +49,20 @@ D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.g.re
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.Properties.Resources.resources
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csproj.GenerateResource.Cache
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csproj.CoreCompileInputs.cache
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\bin\Debug\Stratego.exe.config
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\bin\Debug\Stratego.exe
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\bin\Debug\Stratego.pdb
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\JeuStrategoControl.g.cs
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\MainWindow.g.cs
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\App.g.cs
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego_MarkupCompile.cache
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego_MarkupCompile.lref
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\JeuStrategoControl.baml
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\MainWindow.baml
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.g.resources
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.Properties.Resources.resources
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csproj.GenerateResource.Cache
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csproj.CoreCompileInputs.cache
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.exe
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.pdb

@@ -131,16 +131,18 @@ namespace Stratego
 
          CaseJeu caseDepart, caseCible;
 
+            // On vérifie si les coordonnees ne dépassent pas les limites de la carte
          if (EstCoordonneeValide(coordonneeDepart) && EstCoordonneeValide(coordonneeCible))
          {
+                // On obtient les adresses des cases de la grille avec lesquel on effectue les modifications
             caseDepart = GrilleCases[(int)coordonneeDepart.X][(int)coordonneeDepart.Y];
             caseCible = GrilleCases[(int)coordonneeCible.X][(int)coordonneeCible.Y];
 
-            if (caseDepart.EstOccupe() && EstDeplacementPermis(coordonneeDepart, coordonneeCible))
+                //Modif: Si la pièce est mobile, on effectue le déplacement
+            if (caseDepart.EstOccupe() && EstDeplacementPermis(coordonneeDepart, coordonneeCible) && caseDepart.Occupant is PieceMobile)
             {
                // Faire le déplacement.
-               if(caseDepart.Occupant is PieceMobile)
-                    reponse.PiecesEliminees = caseCible.ResoudreAttaque((PieceMobile)caseDepart.Occupant);
+               reponse.PiecesEliminees = caseCible.ResoudreAttaque((PieceMobile)caseDepart.Occupant);
 
                caseDepart.Occupant = null;
 
@@ -161,10 +163,12 @@ namespace Stratego
 
       public bool EstDeplacementPermis(Coordonnee coordonneeDepart, Coordonnee coordonneeCible)
       {
-         return ( EstCoordonneeValide(coordonneeDepart) && EstCoordonneeValide(coordonneeCible)
-                && !EstCoordonneeLac(coordonneeDepart) && !EstCoordonneeLac(coordonneeCible)
-                && GrilleCases[(int)coordonneeDepart.X][(int)coordonneeDepart.Y].EstDeplacementLegal(GrilleCases[(int)coordonneeCible.X][(int)coordonneeCible.Y])
-                );
+
+        return ( EstCoordonneeValide(coordonneeDepart) && EstCoordonneeValide(coordonneeCible)
+            && !EstCoordonneeLac(coordonneeDepart) && !EstCoordonneeLac(coordonneeCible)
+            && GrilleCases[(int)coordonneeDepart.X][(int)coordonneeDepart.Y].EstDeplacementLegal(GrilleCases[(int)coordonneeCible.X][(int)coordonneeCible.Y])
+            );
+
       }
 
       private bool EstCoordonneeValide(Coordonnee c)
@@ -260,6 +264,23 @@ namespace Stratego
       {
          return GrilleCases[(int)c.X][(int)c.Y].Occupant.couleur;
       }
+
+        public Coordonnee ObtenirCoordonneeCaseJeu(CaseJeu caseJeuReferee)
+        {
+
+            for(int i = 0; i < TAILLE_GRILLE_JEU; i++)
+            {
+                for (int j = 0; j < TAILLE_GRILLE_JEU; j++)
+                {
+                    if(GrilleCases[i][j] == caseJeuReferee)
+                    {
+                        return new Coordonnee(i, j);
+                    }
+                }
+            }
+
+            return null;
+        }
 
    }
 }

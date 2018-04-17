@@ -97,16 +97,66 @@ namespace Stratego
       {
          bool resultat = false;
 
-         if (this.EstVoisineDe(caseCible))
-         {
-            if (!caseCible.EstOccupe()
-               || !this.Occupant.EstDeCouleur(caseCible.Occupant.couleur))
-            {
-               resultat = true;
-            }
-         }
 
-         return resultat;
+        // Dans le cas d'un éclaireur, on peut le faire avancer en ligne droite sans limite tant qu'aucun autre pion 
+        // le bloque. 
+            if(Occupant is Eclaireur)
+            {
+
+                if (AtteindreCaseCibleValide(VoisinAvant, caseCible, Direction.Avant)
+                    || AtteindreCaseCibleValide(VoisinArriere, caseCible, Direction.Arriere)
+                    || AtteindreCaseCibleValide(VoisinDroite, caseCible, Direction.Droite)
+                    || AtteindreCaseCibleValide(VoisinGauche, caseCible, Direction.Gauche))
+                {
+                    resultat = true;
+                }
+
+            }
+            else if (this.EstVoisineDe(caseCible))
+            {
+                if (!caseCible.EstOccupe()
+                   || !this.Occupant.EstDeCouleur(caseCible.Occupant.couleur))
+                {
+                    resultat = true;
+                }
+            }
+
+            return resultat;
       }
+
+        public bool AtteindreCaseCibleValide(CaseJeu caseJeuVoisin, CaseJeu caseCible, Direction directionVoisin)
+        {
+            // On vérifie chaque case voisin
+            // Elle ne doit pas être null ou occupée
+            while (caseJeuVoisin != null && (!caseJeuVoisin.EstOccupe() || caseJeuVoisin.Occupant.EstDeCouleur(caseCible.Occupant.couleur)))
+            {
+                // Si on atteint la caseCible, on autorise le déplacement
+                if (caseJeuVoisin == caseCible)
+                {
+                    return true;
+                }
+
+                switch(directionVoisin)
+                {
+                    case Direction.Avant:
+                        caseJeuVoisin = caseJeuVoisin.VoisinAvant;
+                        break;
+                    case Direction.Arriere:
+                        caseJeuVoisin = caseJeuVoisin.VoisinArriere;
+                        break;
+                    case Direction.Droite:
+                        caseJeuVoisin = caseJeuVoisin.VoisinDroite;
+                        break;
+                    case Direction.Gauche:
+                        caseJeuVoisin = caseJeuVoisin.VoisinGauche;
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+
+            return false;
+        }
    }
 }

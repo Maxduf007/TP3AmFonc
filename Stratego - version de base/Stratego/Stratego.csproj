@@ -86,6 +86,7 @@
     <Compile Include="ClassesMetier\General.cs" />
     <Compile Include="ClassesMetier\Lieutenant.cs" />
     <Compile Include="Couleur.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="JeuStrategoControl.xaml.cs">
       <DependentUpon>JeuStrategoControl.xaml</DependentUpon>
     </Compile>
