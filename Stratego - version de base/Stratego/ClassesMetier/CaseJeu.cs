@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Stratego
 {
@@ -54,7 +56,7 @@ namespace Stratego
                 else if (attaquant.Force > OccupantMobile.Force)
                 {
                     piecesEliminees.Add(Occupant);
-                    Occupant = attaquant;
+                    Occupant = attaquant; // Permet de remplacer l'occupant sur la caseCible par l'attaquant qui a gagné
                 }
                 else
                 {
@@ -67,14 +69,24 @@ namespace Stratego
             {
                 if(Occupant is Bombe)
                 {
-                    if (attaquant is Demineur)
-                        piecesEliminees.Add(Occupant);
-                    else
-                        piecesEliminees.Add(attaquant);
+                        if (attaquant is Demineur)
+                        {
+                            piecesEliminees.Add(Occupant);
+                            Occupant = attaquant;
+
+                        }
+                        else
+                        {
+                            piecesEliminees.Add(attaquant);
+                            Occupant = attaquant;
+                        }
                 }
                 else
-                {
+                {   //Ici, le cas d'un Drapeau
                     piecesEliminees.Add(Occupant);
+
+                        //((MainWindow)App.Current.MainWindow).Jeu.FinPartie();
+
                 }
             }
             

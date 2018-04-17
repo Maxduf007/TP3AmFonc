@@ -14,6 +14,7 @@ namespace Stratego
    public class ReponseDeplacement
    {
       public bool DeplacementFait { get; set; }
+        public bool FinPartie { get; set; }
 
       public List<Piece> PiecesEliminees { get; set; }
 

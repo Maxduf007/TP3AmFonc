@@ -20,7 +20,7 @@ namespace Stratego
    /// </summary>
    public partial class MainWindow : Window
    {
-      private JeuStrategoControl Jeu { get; set; }
+      public JeuStrategoControl Jeu { get; set; }
 
       public MainWindow()
       {

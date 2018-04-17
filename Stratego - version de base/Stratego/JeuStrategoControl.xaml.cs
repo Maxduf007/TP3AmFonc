@@ -359,7 +359,7 @@ namespace Stratego
          Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
          Coordonnee pointActif;
 
-         ReponseDeplacement reponse;
+         ReponseDeplacement reponse = new ReponseDeplacement();
 
          if (TourJeu == Couleur.Rouge)
          {
@@ -397,11 +397,17 @@ namespace Stratego
                }
             }
          }
+
+         if(reponse.FinPartie)
+            {
+                FinPartie();
+            }
       }
 
       public ReponseDeplacement ExecuterCoup(Coordonnee caseDepart, Coordonnee caseCible)
       {
          Thread executionIA = new Thread(LancerIA);
+            
 
          ReponseDeplacement reponse = new ReponseDeplacement();
 
@@ -413,6 +419,7 @@ namespace Stratego
             // Prendre les informations avant de faire le coup.
             attaquant = GrillePartie.ObtenirPiece(caseDepart);
             affichageAttaquant = GrillePieces[(int)caseDepart.X][(int)caseDepart.Y];
+
             reponse = GrillePartie.ResoudreDeplacement(caseDepart, caseCible);
 
             if (reponse.DeplacementFait)
@@ -484,5 +491,24 @@ namespace Stratego
             TourJeu = Couleur.Rouge;
          }
       }
+
+        public void FinPartie()
+        {
+            MessageBoxResult resultat;
+            resultat = MessageBox.Show("Fin de la partie, joueur" + TourJeu.ToString() + "a gagné!"
+                                       , "Voulez-vous recommencer une partie?"
+                                      , MessageBoxButton.YesNo);
+            if(resultat == MessageBoxResult.No)
+            {
+                Application.Current.Shutdown();
+                //((MainWindow)App.Current.MainWindow).grdPrincipale.IsEnabled = false;
+            }
+            else
+            {
+                //((MainWindow)App.Current.MainWindow).grdPrincipale.IsEnabled = false;
+                Application.Current.Shutdown();
+                System.Windows.Forms.Application.Restart();
+            }
+        }
    }
 }

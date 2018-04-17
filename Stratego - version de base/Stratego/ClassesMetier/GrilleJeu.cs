@@ -146,7 +146,10 @@ namespace Stratego
 
                caseDepart.Occupant = null;
 
-               reponse.DeplacementFait = true;
+                    if(reponse.PiecesEliminees.Count > 0 && reponse.PiecesEliminees[0] is Drapeau)
+                        reponse.FinPartie = true;
+
+                reponse.DeplacementFait = true;
             }
             else
             {
