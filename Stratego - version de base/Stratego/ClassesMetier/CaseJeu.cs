@@ -6,26 +6,35 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
-   public class CaseJeu
-   {
-      public CaseJeu VoisinAvant { get; set; }
-      public CaseJeu VoisinArriere { get; set; }
-      public CaseJeu VoisinGauche { get; set; }
-      public CaseJeu VoisinDroite { get; set; }
+    public class CaseJeu
+    {
+        public CaseJeu VoisinAvant { get; set; }
+        public CaseJeu VoisinArriere { get; set; }
+        public CaseJeu VoisinGauche { get; set; }
+        public CaseJeu VoisinDroite { get; set; }
 
-      public Piece Occupant { get; set; }
+        public Piece Occupant { get; set; }
 
-      public string TypeCase { get; set; }
+        public string TypeCase { get; set; }
 
-      public CaseJeu(string type)
-      {
-         TypeCase = type;
-      }
+        public CaseJeu(string type)
+        {
+            TypeCase = type;
+        }
 
-      public bool EstOccupe()
-      {
-         return (Occupant != null);
-      }
+        public bool EstOccupe()
+        {
+            return (Occupant != null);
+        }
+
+        public bool EstNull()
+        {
+            if (VoisinArriere == null || VoisinAvant == null || VoisinDroite == null || VoisinGauche == null)
+                return true;
+            else
+                return false;
+            
+        }
 
       public List<Piece> ResoudreAttaque(PieceMobile attaquant)
       {
@@ -126,10 +135,12 @@ namespace Stratego
 
         public bool AtteindreCaseCibleValide(CaseJeu caseJeuVoisin, CaseJeu caseCible, Direction directionVoisin)
         {
+
             // On vérifie chaque case voisin
             // Elle ne doit pas être null ou occupée
-            while (caseJeuVoisin != null && (!caseJeuVoisin.EstOccupe() || caseJeuVoisin.Occupant.EstDeCouleur(caseCible.Occupant.couleur)))
+            while (caseJeuVoisin != null && ((caseCible.EstOccupe() && !caseCible.Occupant.EstDeCouleur(Occupant.couleur)) || !caseCible.EstOccupe()) && (!caseJeuVoisin.EstOccupe() || caseJeuVoisin == caseCible))
             {
+                
                 // Si on atteint la caseCible, on autorise le déplacement
                 if (caseJeuVoisin == caseCible)
                 {
@@ -153,8 +164,13 @@ namespace Stratego
                     default:
                         break;
                 }
-                
+
+                if(caseJeuVoisin == null)
+                {
+                    break;
+                }
             }
+            
 
             return false;
         }
