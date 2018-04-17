@@ -64,11 +64,9 @@ namespace Stratego
          ListeCoupsPermis = TrouverCoupsPermis(jeu.GrillePartie);
 
          choixRnd = rnd.Next(0, ListeCoupsPermis.Count);
-            while(reponse.DeplacementFait())
-            {
-                reponse = jeu.ExecuterCoup(ListeCoupsPermis[choixRnd][0], ListeCoupsPermis[choixRnd][1]);
+  
+            reponse = jeu.ExecuterCoup(ListeCoupsPermis[choixRnd][0], ListeCoupsPermis[choixRnd][1]);
 
-            }
       }
 
       private List<List<Coordonnee>> TrouverCoupsPermis(GrilleJeu grillePartie)
@@ -81,13 +79,13 @@ namespace Stratego
             for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
             {
                coordonneeDepart = new Coordonnee(i, j);
-
+                   
                if (Jeu.GrillePartie.EstCaseOccupee(coordonneeDepart) 
-                  && Jeu.GrillePartie.ObtenirCouleurPiece(coordonneeDepart) == Couleur.Bleu)
+                  && Jeu.GrillePartie.ObtenirCouleurPiece(coordonneeDepart) == Couleur.Bleu && Jeu.GrillePartie.ObtenirPiece(coordonneeDepart) is PieceMobile)
                {
                   // Valider un coup vers la gauche.
                   coordonneeCible = new Coordonnee(coordonneeDepart.X - 1, coordonneeDepart.Y);
-                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible) && Jeu.GrillePartie.)
+                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible))
                   {
                      listeCoups.Add(new List<Coordonnee>() { coordonneeDepart, coordonneeCible });
                   }
