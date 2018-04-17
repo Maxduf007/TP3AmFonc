@@ -56,6 +56,7 @@ namespace Stratego
 
       private void JouerCoup(JeuStrategoControl jeu)
       {
+            ReponseDeplacement reponse = new ReponseDeplacement();
          List<List<Coordonnee>> ListeCoupsPermis;
          Random rnd = new Random(DateTime.Now.Millisecond);
          int choixRnd;
@@ -63,7 +64,11 @@ namespace Stratego
          ListeCoupsPermis = TrouverCoupsPermis(jeu.GrillePartie);
 
          choixRnd = rnd.Next(0, ListeCoupsPermis.Count);
-         jeu.ExecuterCoup(ListeCoupsPermis[choixRnd][0], ListeCoupsPermis[choixRnd][1]);
+            while(reponse.DeplacementFait())
+            {
+                reponse = jeu.ExecuterCoup(ListeCoupsPermis[choixRnd][0], ListeCoupsPermis[choixRnd][1]);
+
+            }
       }
 
       private List<List<Coordonnee>> TrouverCoupsPermis(GrilleJeu grillePartie)
@@ -82,7 +87,7 @@ namespace Stratego
                {
                   // Valider un coup vers la gauche.
                   coordonneeCible = new Coordonnee(coordonneeDepart.X - 1, coordonneeDepart.Y);
-                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible))
+                  if (Jeu.GrillePartie.EstDeplacementPermis(coordonneeDepart, coordonneeCible) && Jeu.GrillePartie.)
                   {
                      listeCoups.Add(new List<Coordonnee>() { coordonneeDepart, coordonneeCible });
                   }

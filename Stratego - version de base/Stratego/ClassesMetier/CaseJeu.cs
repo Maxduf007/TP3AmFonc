@@ -137,7 +137,7 @@ namespace Stratego
         {
 
             // On vérifie chaque case voisin
-            // Elle ne doit pas être null ou occupée
+            // Elle ne doit pas être null, que si la cible est occupé ne soit pas occupé par une même couleur de pion et que le chemin de l'éclaireur ne doit pas occupé par un pion
             while (caseJeuVoisin != null && ((caseCible.EstOccupe() && !caseCible.Occupant.EstDeCouleur(Occupant.couleur)) || !caseCible.EstOccupe()) && (!caseJeuVoisin.EstOccupe() || caseJeuVoisin == caseCible))
             {
                 

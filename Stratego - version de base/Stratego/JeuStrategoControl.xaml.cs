@@ -375,8 +375,10 @@ namespace Stratego
                else
                {
                    // On tente d'exécuter le coup
+                   // le tour ne change pas un moment donné
                   reponse = ExecuterCoup(pointActif, pointSelectionne);
 
+                        
                   if (reponse.DeplacementFait)
                   {
                      grdPartie.Children.Remove(SelectionActive);
@@ -450,7 +452,7 @@ namespace Stratego
                {
                   ChangerTourJeu();
                }
-            }
+            } 
          }
          else
          {
