@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stratego"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="550">
+        Title="MainWindow" Height="600" Width="550">
     <Grid Name="grdPrincipale">
+        <Button Name="btnNouvellePartie" Content="Nouvelle partie" HorizontalAlignment="Left" Margin="36,519,0,0" VerticalAlignment="Top" Width="102" Height="40" Click="btnNouvellePartie_Click"/>
     </Grid>
 </Window>

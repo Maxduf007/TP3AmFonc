@@ -204,19 +204,21 @@ namespace Stratego
          return ((GrilleCases[(int)c.X][(int)c.Y]).EstOccupe());
       }
 
-      public bool PositionnerPieces(List<Piece> lstPieces, Couleur couleurJoueur)
+      public bool PositionnerPieces(List<Piece> lstPieces, bool PositionnementJoueur)
       {
          bool positionnementApplique = false;
+            Piece pieceDeterminerCouleur = lstPieces.First();
+            Couleur couleurPieceAPositionner = pieceDeterminerCouleur.couleur;
 
          int compteur = 0;
          int decallage = 0;
          
-         if (couleurJoueur == Couleur.Rouge)
+         if (PositionnementJoueur)
          {
             decallage = 6;
          }
 
-         if (!PositionnementFait(couleurJoueur) && lstPieces.Count == 40)
+         if (!PositionnementFait(couleurPieceAPositionner) && lstPieces.Count == 40)
          {
             positionnementApplique = true;
 

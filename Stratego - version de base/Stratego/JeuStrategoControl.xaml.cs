@@ -35,6 +35,8 @@ namespace Stratego
 
       public Couleur TourJeu { get; private set; }
 
+      public Couleur CouleurJoueur { get; private set; }
+
       #region Code relié au patron observateur
 
       List<IObserver<JeuStrategoControl>> observers;
@@ -76,8 +78,10 @@ namespace Stratego
 
       private IA_Stratego IA { get; set; }
 
-      public JeuStrategoControl()
+      public JeuStrategoControl(Couleur couleurJoueur)
       {
+            CouleurJoueur = couleurJoueur;
+
          InitializeComponent();
 
          GrillePartie = new GrilleJeu();
@@ -118,12 +122,23 @@ namespace Stratego
 
          TourJeu = Couleur.Rouge;
 
+
          // Initialise la liste d'observateurs.
          observers = new List<IObserver<JeuStrategoControl>>();
 
          // Initialiser l'IA.
-         IA = new IA_Stratego(this);
-      }
+         
+
+            if(CouleurJoueur != Couleur.Rouge)
+            {
+                IA = new IA_Stratego(this, Couleur.Rouge);
+                Thread executionIA = new Thread(LancerIA);
+                executionIA.Start();
+            }
+            else
+                IA = new IA_Stratego(this, Couleur.Bleu);
+
+        }
 
       /// <summary>
       /// Cette méthode existe principalement pour que le jeu soit testable.
@@ -142,9 +157,20 @@ namespace Stratego
                                                 , new Eclaireur(Couleur.Bleu), new Commandant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Marechal(Couleur.Bleu), new Commandant(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Demineur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu)
                                                 , new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Demineur(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Espion(Couleur.Bleu), new General(Couleur.Bleu), new Bombe(Couleur.Bleu)
                                                 };
+            if(CouleurJoueur == Couleur.Rouge)
+            {
+                GrillePartie.PositionnerPieces(piecesRouges, true);
+                GrillePartie.PositionnerPieces(piecesBleues, false);
 
-         GrillePartie.PositionnerPieces(piecesRouges, Couleur.Rouge);
-         GrillePartie.PositionnerPieces(piecesBleues, Couleur.Bleu);
+            }
+            else
+            {
+                GrillePartie.PositionnerPieces(piecesBleues, true);
+                GrillePartie.PositionnerPieces(piecesRouges, false);
+            }
+
+         
+            
       }
 
       private void DiviserGrilleJeu()
@@ -361,7 +387,7 @@ namespace Stratego
 
          ReponseDeplacement reponse = new ReponseDeplacement();
 
-         if (TourJeu == Couleur.Rouge)
+         if (TourJeu == CouleurJoueur)
          {
             if (grdPartie.Children.Contains(SelectionActive))
             {
@@ -388,7 +414,7 @@ namespace Stratego
             else
             {
                if (GrillePartie.EstCaseOccupee(pointSelectionne)
-                  && GrillePartie.ObtenirCouleurPiece(pointSelectionne) == Couleur.Rouge)
+                  && GrillePartie.ObtenirCouleurPiece(pointSelectionne) == CouleurJoueur)
                {
                   Grid.SetColumn(SelectionActive, (int)pointSelectionne.X);
                   Grid.SetRow(SelectionActive, (int)pointSelectionne.Y);
@@ -449,17 +475,24 @@ namespace Stratego
                   grdPartie.Children.Add(affichageAttaquant);
                }
 
-               // Permet de faire jouer l'IA.
-               if (TourJeu == Couleur.Rouge)
-               {
-                  ChangerTourJeu();
-                  executionIA.Start();
-               }
-               else
-               {
-                  ChangerTourJeu();
-               }
-            } 
+                ChangerTourJeu();
+                
+                if(TourJeu == IA.CouleurIA)
+                {
+                    executionIA.Start();
+                }
+
+                    // Permet de faire jouer l'IA.
+                    /*if (TourJeu == Couleur.Rouge)
+                    {
+
+                       executionIA.Start();
+                    }
+                    else
+                    {
+                       ChangerTourJeu();
+                    }*/
+                } 
          }
          else
          {
@@ -495,8 +528,8 @@ namespace Stratego
         public void FinPartie()
         {
             MessageBoxResult resultat;
-            resultat = MessageBox.Show("Fin de la partie, joueur" + TourJeu.ToString() + "a gagné!"
-                                       , "Voulez-vous recommencer une partie?"
+            resultat = MessageBox.Show("Le joueur " + TourJeu.ToString() + " a gagné! Voulez-vous recommencer la partie?"
+                                       , "Fin de la partie"
                                       , MessageBoxButton.YesNo);
             if(resultat == MessageBoxResult.No)
             {

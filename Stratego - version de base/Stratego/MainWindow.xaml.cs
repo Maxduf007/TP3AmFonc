@@ -15,20 +15,37 @@ using System.Windows.Shapes;
 
 namespace Stratego
 {
-   /// <summary>
-   /// Logique d'interaction pour MainWindow.xaml
-   /// </summary>
-   public partial class MainWindow : Window
-   {
-      public JeuStrategoControl Jeu { get; set; }
+    /// <summary>
+    /// Logique d'interaction pour MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public JeuStrategoControl Jeu { get; set; }
 
-      public MainWindow()
-      {
-         InitializeComponent();
+        public MainWindow(Couleur CouleurJoueur)
+        {
+            InitializeComponent();
 
-         Jeu = new JeuStrategoControl();
+            Jeu = new JeuStrategoControl(CouleurJoueur);
 
-         grdPrincipale.Children.Add(Jeu);
-      }
-   }
+            grdPrincipale.Children.Add(Jeu);
+        }
+
+        private void btnNouvellePartie_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult resultat;
+            resultat = MessageBox.Show("Êtes-vous sûr de vouloir lancer une nouvelle partie?"
+                                       , "Nouvelle partie"
+                                      , MessageBoxButton.YesNo);
+            if (resultat == MessageBoxResult.No)
+            {
+                
+            }
+            else
+            {
+                Application.Current.Shutdown();
+                System.Windows.Forms.Application.Restart();
+            }
+        }
+    }
 }

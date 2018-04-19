@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\
+D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\
 Stratego
 none
 false
 DEBUG;TRACE
-D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\App.xaml
-21341877108
+D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\App.xaml
+3110598827
 
-31-591095719
+32-359776923
 151984215308
-JeuStrategoControl.xaml;MainWindow.xaml;
+JeuStrategoControl.xaml;MainWindow.xaml;NouvellePartieWindow.xaml;
 
-False
+True
 
