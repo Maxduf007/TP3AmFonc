@@ -32,5 +32,7 @@ namespace Stratego
             return (couleur == couleurRecherche);
         }
 
+        
+
     }
 }
