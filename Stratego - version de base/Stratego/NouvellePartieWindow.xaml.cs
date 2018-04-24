@@ -24,9 +24,9 @@ namespace Stratego
 
         private const int TAILLE_CASES_GRILLE = 40;
 
-        public Piece[,] TabPieceJoueurPositionnee = new Piece[TAILLE_GRILLE_POSITIONNEMENT_X, TAILLE_GRILLE_POSITIONNEMENT_Y];
+        public Piece[,] TabPieceJoueurPositionnee = new Piece[TAILLE_GRILLE_POSITIONNEMENT_Y, TAILLE_GRILLE_POSITIONNEMENT_X];
 
-        public Label[,] TabAffichagePion = new Label[TAILLE_GRILLE_POSITIONNEMENT_X, TAILLE_GRILLE_POSITIONNEMENT_Y];
+        public Label[,] TabAffichagePion = new Label[TAILLE_GRILLE_POSITIONNEMENT_Y, TAILLE_GRILLE_POSITIONNEMENT_X];
 
         #region Static
         private const int TAILLE_GRILLE_POSITIONNEMENT_X = 10;
@@ -45,7 +45,7 @@ namespace Stratego
 
         private void btnLancerPartie_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow(CouleurJoueurChoisi);
+            MainWindow mainWindow = new MainWindow(CouleurJoueurChoisi, TabPieceJoueurPositionnee);
 
             this.Close();
 
@@ -82,25 +82,25 @@ namespace Stratego
                 case "General":
                     PieceSelectionnee = new General(CouleurJoueurChoisi);
                     break;
-                case "Colonels":
+                case "Colonel":
                     PieceSelectionnee = new Colonel(CouleurJoueurChoisi);
                     break;
-                case "Commandants":
+                case "Commandant":
                     PieceSelectionnee = new Commandant(CouleurJoueurChoisi);
                     break;
-                case "Capitaines":
+                case "Capitaine":
                     PieceSelectionnee = new Capitaine(CouleurJoueurChoisi);
                     break;
-                case "Lieutenants":
+                case "Lieutenant":
                     PieceSelectionnee = new Lieutenant(CouleurJoueurChoisi);
                     break;
-                case "Sergents":
+                case "Sergent":
                     PieceSelectionnee = new Sergent(CouleurJoueurChoisi);
                     break;
-                case "Demineurs":
+                case "Demineur":
                     PieceSelectionnee = new Demineur(CouleurJoueurChoisi);
                     break;
-                case "Eclaireurs":
+                case "Eclaireur":
                     PieceSelectionnee = new Eclaireur(CouleurJoueurChoisi);
                     break;
                 case "Espion":
@@ -109,7 +109,7 @@ namespace Stratego
                 case "Drapeau":
                     PieceSelectionnee = new Drapeau(CouleurJoueurChoisi);
                     break;
-                case "Bombes":
+                case "Bombe":
                     PieceSelectionnee = new Bombe(CouleurJoueurChoisi);
                     break;
                 default:
@@ -124,7 +124,7 @@ namespace Stratego
             string NomPionAPlacer = PionBoutton.Name.Substring(3);
             int NbPiecesDispo = Convert.ToInt16(PionBoutton.Content);
 
-            if(NbPiecesDispo > 0)
+            if(NbPiecesDispo > 0 && PieceSelectionnee == null)
             {
 
                 // On enlève une pièce disponible pour le type de pion sélectionné
@@ -146,42 +146,70 @@ namespace Stratego
             Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
             Label labelAffichage;
 
-            if (/*e.LeftButton == MouseButtonState.Pressed &&*/ PieceSelectionnee != null)
+            if (e.ChangedButton == MouseButton.Left && PieceSelectionnee != null)
             {
-                // On place dans la grille de positionnement la pièce sélectionnée
-                TabPieceJoueurPositionnee[pointSelectionne.X, pointSelectionne.Y] = PieceSelectionnee;
+                if(TabPieceJoueurPositionnee[pointSelectionne.Y, pointSelectionne.X] == null)
+                {
 
-                TabAffichagePion[pointSelectionne.X, pointSelectionne.Y] = CreerAffichagePiece(PieceSelectionnee);
+                    // On place dans la grille de positionnement la pièce sélectionnée
+                    TabPieceJoueurPositionnee[pointSelectionne.Y, pointSelectionne.X] = PieceSelectionnee;
 
-                labelAffichage = TabAffichagePion[pointSelectionne.X,pointSelectionne.Y];
+                    // On place dans le tableau d'affichage de référence l'affichage de la pièce
+                    TabAffichagePion[pointSelectionne.Y, pointSelectionne.X] = CreerAffichagePiece(PieceSelectionnee);
 
-                Grid.SetColumn(labelAffichage, pointSelectionne.X);
-                Grid.SetRow(labelAffichage, pointSelectionne.Y);
+                    // On ajoute l'affichage dans la grid
+                    labelAffichage = TabAffichagePion[pointSelectionne.Y, pointSelectionne.X];
 
-                grdPlacementPion.Children.Add(labelAffichage);
+                    Grid.SetColumn(labelAffichage, pointSelectionne.X);
+                    Grid.SetRow(labelAffichage, pointSelectionne.Y);
 
-                PieceSelectionnee = null;
+                    grdPlacementPion.Children.Add(labelAffichage);
+
+                    PieceSelectionnee = null;
+                }
+            }
+            else if(e.ChangedButton == MouseButton.Right && PieceSelectionnee == null)
+            {
+                if (TabPieceJoueurPositionnee[pointSelectionne.Y, pointSelectionne.X] != null)
+                {
+                    // On enlève de la grille de positionnement la pièce sélectionnée
+                    RemettrePionDansChoix(TabPieceJoueurPositionnee[pointSelectionne.Y, pointSelectionne.X]);
+                    TabPieceJoueurPositionnee[pointSelectionne.Y, pointSelectionne.X] = null;
+
+                    //On enlève l'affichage du grid
+                    labelAffichage = TabAffichagePion[pointSelectionne.Y, pointSelectionne.X];
+
+                    grdPlacementPion.Children.Remove(labelAffichage);
+
+
+                    // On enlève l'affichage du tableau de référence pour la grid
+                    TabAffichagePion[pointSelectionne.Y, pointSelectionne.X] = null;
+
+                }
             }
 
 
         }
 
-        /*private void MouseClickRight_event(object sender, MouseButtonEventArgs e)
+        private void RemettrePionDansChoix(Piece PieceSupprimee)
         {
-            Button PionBoutton = (Button)sender;
-            string SymbolePionAPlacer = PionBoutton.Name.Substring(3, 1);
-            int NbPiecesDispo = Convert.ToInt16(PionBoutton.Content);
+            StringBuilder NomBouton = new StringBuilder();
+            string TypePiece = PieceSupprimee.GetType().ToString();
+            Button BoutonPiece = new Button();
+            int iNbPieceDispo;
 
-            if (e.RightButton == MouseButtonState.Pressed)
-            {
-                // On remet une pièce disponible pour le type de pion sélectionné
-                NbPiecesDispo += 1;
-                // On met à jour le contenu du boutton pour indiquer le nb de pièces restantes
-                PionBoutton.Content = NbPiecesDispo.ToString();
-            }
+            // On récupère le bouton dans la grid pour réajuster le nombre de pièce disponible
+            NomBouton.Append("btn" + TypePiece.Substring(9));
 
+            BoutonPiece = (Button)grdPlacementPion.FindName(NomBouton.ToString());
 
-        }*/
+            iNbPieceDispo = Convert.ToInt16(BoutonPiece.Content);
+
+            iNbPieceDispo++;
+
+            BoutonPiece.Content = iNbPieceDispo.ToString();
+
+        }
 
         private void DiviserGrillePositionnement()
         {
@@ -334,6 +362,7 @@ namespace Stratego
                     grdPlacementPion.Children.Add(rect);
 
                     rect.MouseLeftButtonUp += PositionnerPionGrille;
+                    rect.MouseRightButtonUp += PositionnerPionGrille;
 
                 }
 

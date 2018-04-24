@@ -22,11 +22,11 @@ namespace Stratego
     {
         public JeuStrategoControl Jeu { get; set; }
 
-        public MainWindow(Couleur CouleurJoueur)
+        public MainWindow(Couleur CouleurJoueur, Piece[,] TabPiecePositionJoueur)
         {
             InitializeComponent();
 
-            Jeu = new JeuStrategoControl(CouleurJoueur);
+            Jeu = new JeuStrategoControl(CouleurJoueur, TabPiecePositionJoueur);
 
             grdPrincipale.Children.Add(Jeu);
         }

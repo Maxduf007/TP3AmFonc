@@ -78,7 +78,7 @@ namespace Stratego
 
       private IA_Stratego IA { get; set; }
 
-      public JeuStrategoControl(Couleur couleurJoueur)
+      public JeuStrategoControl(Couleur couleurJoueur, Piece[,] TabPiecePositionJoueur)
       {
             CouleurJoueur = couleurJoueur;
 
@@ -91,7 +91,7 @@ namespace Stratego
          DefinirZoneSelectionGrille();
          InitialiserSelectionActive();
 
-         PositionnerPieces();
+         PositionnerPieces(TabPiecePositionJoueur);
          InitialiserAffichagePieces();
 
          #region Tests
@@ -144,19 +144,57 @@ namespace Stratego
       /// Cette méthode existe principalement pour que le jeu soit testable.
       /// On ne veut évidemment pas toujours commencer une partie avec exactement les même positions.
       /// </summary>
-      private void PositionnerPieces()
+      private void PositionnerPieces(Piece[,] TabPiecePositionJoueur)
       {
-         List<Piece> piecesRouges = new List<Piece>() { new Marechal(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge)
-                                                , new Sergent(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Colonel(Couleur.Rouge), new Colonel(Couleur.Rouge), new General(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Lieutenant(Couleur.Rouge)
-                                                , new Commandant(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Commandant(Couleur.Rouge), new Espion(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Bombe(Couleur.Rouge), new Sergent(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Eclaireur(Couleur.Rouge)
-                                                , new Commandant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Drapeau(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Demineur(Couleur.Rouge)
-                                                };
+            List<Piece> piecesRouges = new List<Piece>();
+            List<Piece> piecesBleues = new List<Piece>();
 
-         List<Piece> piecesBleues = new List<Piece>() { new Commandant(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu), new Drapeau(Couleur.Bleu)
-                                                , new Capitaine(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Sergent(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu)
-                                                , new Eclaireur(Couleur.Bleu), new Commandant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Marechal(Couleur.Bleu), new Commandant(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Demineur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu)
-                                                , new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Demineur(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Espion(Couleur.Bleu), new General(Couleur.Bleu), new Bombe(Couleur.Bleu)
-                                                };
+            // À modifier, mais permet faire des tests
+            if (TabPiecePositionJoueur.GetValue(0, 0) == null)
+            {
+
+                piecesRouges = new List<Piece>() { new Marechal(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge)
+                                                        , new Sergent(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Colonel(Couleur.Rouge), new Colonel(Couleur.Rouge), new General(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Lieutenant(Couleur.Rouge)
+                                                        , new Commandant(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Commandant(Couleur.Rouge), new Espion(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Bombe(Couleur.Rouge), new Sergent(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Eclaireur(Couleur.Rouge)
+                                                        , new Commandant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Drapeau(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Demineur(Couleur.Rouge)
+                                                        };
+
+                piecesBleues = new List<Piece>() { new Commandant(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu), new Drapeau(Couleur.Bleu)
+                                                        , new Capitaine(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Sergent(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu)
+                                                        , new Eclaireur(Couleur.Bleu), new Commandant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Marechal(Couleur.Bleu), new Commandant(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Demineur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu)
+                                                        , new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Demineur(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Espion(Couleur.Bleu), new General(Couleur.Bleu), new Bombe(Couleur.Bleu)
+                                                        };
+            }
+            else
+            {
+                if(CouleurJoueur == Couleur.Rouge)
+                {
+                    foreach (Piece pieceTab in TabPiecePositionJoueur)
+                    {
+                        piecesRouges.Add(pieceTab);
+                    }
+                    piecesBleues = new List<Piece>() { new Commandant(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Demineur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu), new Drapeau(Couleur.Bleu)
+                                                        , new Capitaine(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Sergent(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu), new Bombe(Couleur.Bleu)
+                                                        , new Eclaireur(Couleur.Bleu), new Commandant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Marechal(Couleur.Bleu), new Commandant(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Demineur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu)
+                                                        , new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Demineur(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Espion(Couleur.Bleu), new General(Couleur.Bleu), new Bombe(Couleur.Bleu)
+                                                        };
+                }
+                else
+                {
+                    foreach (Piece pieceTab in TabPiecePositionJoueur)
+                    {
+                        piecesBleues.Add(pieceTab);
+                    }
+
+                    piecesRouges = new List<Piece>() { new Marechal(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge)
+                                                        , new Sergent(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Colonel(Couleur.Rouge), new Colonel(Couleur.Rouge), new General(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Lieutenant(Couleur.Rouge)
+                                                        , new Commandant(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Commandant(Couleur.Rouge), new Espion(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Bombe(Couleur.Rouge), new Sergent(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Eclaireur(Couleur.Rouge)
+                                                        , new Commandant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Drapeau(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Demineur(Couleur.Rouge)
+                                                        };
+                }
+            }
+
+
             if(CouleurJoueur == Couleur.Rouge)
             {
                 GrillePartie.PositionnerPieces(piecesRouges, true);

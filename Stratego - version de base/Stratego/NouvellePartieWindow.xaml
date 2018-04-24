@@ -21,8 +21,8 @@
             
         </Grid>
         <Button Name="btnLancerPartie" Content="Lancer" HorizontalAlignment="Left" Height="25" Margin="158,24,0,0" VerticalAlignment="Top" Width="77" Click="btnLancerPartie_Click" Grid.Row="1"/>
-        <RadioButton Name="rdbRouge" GroupName="couleurJoueur" Content="Rouge" HorizontalAlignment="Left" Margin="45,17,0,0" VerticalAlignment="Top" Checked="RadioButtonChecked" Grid.Row="1"/>
-        <RadioButton Name="rdbBleu" GroupName="couleurJoueur" Content="Bleu" HorizontalAlignment="Left" Margin="45,37,0,0" VerticalAlignment="Top" IsChecked="True" Checked="RadioButtonChecked" Grid.Row="1"/>
+        <RadioButton Name="rdbRouge" GroupName="couleurJoueur" Content="Rouge" HorizontalAlignment="Left" Margin="45,17,0,0" VerticalAlignment="Top" IsChecked="True" Checked="RadioButtonChecked" Grid.Row="1"/>
+        <RadioButton Name="rdbBleu" GroupName="couleurJoueur" Content="Bleu" HorizontalAlignment="Left" Margin="45,37,0,0" VerticalAlignment="Top"  Checked="RadioButtonChecked" Grid.Row="1"/>
 
         <Label Content="Configuration" FontSize="18" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Height="37" Width="134"/>
 
@@ -33,22 +33,22 @@
         <Button Name="btnGeneral" Content="1" Grid.Column="1" HorizontalAlignment="Left" Margin="96,45,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Colonels" Grid.Column="1" HorizontalAlignment="Left" Margin="17,71,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnColonels" Content="2" Grid.Column="1" HorizontalAlignment="Left" Margin="96,71,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnColonel" Content="2" Grid.Column="1" HorizontalAlignment="Left" Margin="96,71,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Commandants" Grid.Column="1" HorizontalAlignment="Left" Margin="17,97,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnCommandants" Content="3" Grid.Column="1" HorizontalAlignment="Left" Margin="96,97,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnCommandant" Content="3" Grid.Column="1" HorizontalAlignment="Left" Margin="96,97,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Capitaines" Grid.Column="1" HorizontalAlignment="Left" Margin="17,123,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnCapitaines" Content="4" Grid.Column="1" HorizontalAlignment="Left" Margin="96,123,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnCapitaine" Content="4" Grid.Column="1" HorizontalAlignment="Left" Margin="96,123,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Lieutenants" Grid.Column="1" HorizontalAlignment="Left" Margin="17,149,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnLieutenants" Content="4" Grid.Column="1" HorizontalAlignment="Left" Margin="96,149,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnLieutenant" Content="4" Grid.Column="1" HorizontalAlignment="Left" Margin="96,149,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Sergents" Grid.Column="1" HorizontalAlignment="Left" Margin="17,175,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnSergeants" Content="4" Grid.Column="1" HorizontalAlignment="Left" Margin="96,175,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnSergent" Content="4" Grid.Column="1" HorizontalAlignment="Left" Margin="96,175,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Démineurs" Grid.Column="1" HorizontalAlignment="Left" Margin="17,201,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnDemineurs" Content="5" Grid.Column="1" HorizontalAlignment="Left" Margin="96,201,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnDemineur" Content="5" Grid.Column="1" HorizontalAlignment="Left" Margin="96,201,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Espion" Grid.Column="1" HorizontalAlignment="Left" Margin="17,227,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
         <Button Name="btnEspion" Content="1" Grid.Column="1" HorizontalAlignment="Left" Margin="96,227,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
@@ -57,10 +57,10 @@
         <Button Name="btnDrapeau" Content="1" Grid.Column="1" HorizontalAlignment="Left" Margin="96,253,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Bombes" Grid.Column="1" HorizontalAlignment="Left" Margin="17,279,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnBombes" Content="6" Grid.Column="1" HorizontalAlignment="Left" Margin="96,279,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnBombe" Content="6" Grid.Column="1" HorizontalAlignment="Left" Margin="96,279,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
         <Label Content="Éclaireurs" Grid.Column="1" HorizontalAlignment="Left" Margin="17,305,0,0" VerticalAlignment="Top" Height="26" Width="74" FontSize="10"/>
-        <Button Name="btnEclaireurs" Content="8" Grid.Column="1" HorizontalAlignment="Left" Margin="96,305,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
+        <Button Name="btnEclaireur" Content="8" Grid.Column="1" HorizontalAlignment="Left" Margin="96,305,0,0" VerticalAlignment="Top" Width="19" Height="17" Click="btnPlacerUnite_Click"/>
 
 
     </Grid>
