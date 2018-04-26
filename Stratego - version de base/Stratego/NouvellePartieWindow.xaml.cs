@@ -26,7 +26,7 @@ namespace Stratego
 
         public Piece[,] TabPieceJoueurPositionnee = new Piece[TAILLE_GRILLE_POSITIONNEMENT_Y, TAILLE_GRILLE_POSITIONNEMENT_X];
 
-        public Label[,] TabAffichagePion = new Label[TAILLE_GRILLE_POSITIONNEMENT_Y, TAILLE_GRILLE_POSITIONNEMENT_X];
+        public Image[,] TabAffichagePion = new Image[TAILLE_GRILLE_POSITIONNEMENT_Y, TAILLE_GRILLE_POSITIONNEMENT_X];
 
         #region Static
         private const int TAILLE_GRILLE_POSITIONNEMENT_X = 10;
@@ -144,7 +144,7 @@ namespace Stratego
             // Reçoit le rectangle sélectionner par la souris
             Rectangle caseSelectionnee = (Rectangle)sender;
             Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
-            Label labelAffichage;
+            Image ImageAffichage;
 
             if (e.ChangedButton == MouseButton.Left && PieceSelectionnee != null)
             {
@@ -158,12 +158,12 @@ namespace Stratego
                     TabAffichagePion[pointSelectionne.Y, pointSelectionne.X] = CreerAffichagePiece(PieceSelectionnee);
 
                     // On ajoute l'affichage dans la grid
-                    labelAffichage = TabAffichagePion[pointSelectionne.Y, pointSelectionne.X];
+                    ImageAffichage = TabAffichagePion[pointSelectionne.Y, pointSelectionne.X];
 
-                    Grid.SetColumn(labelAffichage, pointSelectionne.X);
-                    Grid.SetRow(labelAffichage, pointSelectionne.Y);
+                    Grid.SetColumn(ImageAffichage, pointSelectionne.X);
+                    Grid.SetRow(ImageAffichage, pointSelectionne.Y);
 
-                    grdPlacementPion.Children.Add(labelAffichage);
+                    grdPlacementPion.Children.Add(ImageAffichage);
 
                     PieceSelectionnee = null;
                 }
@@ -177,9 +177,9 @@ namespace Stratego
                     TabPieceJoueurPositionnee[pointSelectionne.Y, pointSelectionne.X] = null;
 
                     //On enlève l'affichage du grid
-                    labelAffichage = TabAffichagePion[pointSelectionne.Y, pointSelectionne.X];
+                    ImageAffichage = TabAffichagePion[pointSelectionne.Y, pointSelectionne.X];
 
-                    grdPlacementPion.Children.Remove(labelAffichage);
+                    grdPlacementPion.Children.Remove(ImageAffichage);
 
 
                     // On enlève l'affichage du tableau de référence pour la grid
@@ -304,42 +304,54 @@ namespace Stratego
             return ligne;
         }
 
-        private Label CreerAffichagePiece(Piece pieceAffichage)
+        private Image CreerAffichagePiece(Piece pieceAffichage)
         {
-            Label labelAffichage = new Label();
+            Image ImageAffichage = new Image();
+            BitmapImage bitmap = new BitmapImage();
+            // Sert seulement à aller chercher des fonctions
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(RetournerNomSourceImage(pieceAffichage.couleur, pieceAffichage), UriKind.Relative);
+            bitmap.EndInit();
 
-            if (pieceAffichage is Bombe)
-            {
-                labelAffichage.Content = "B";
-            }
-            else if (pieceAffichage is Drapeau)
-            {
-                labelAffichage.Content = "D";
-            }
+            ImageAffichage.Stretch = Stretch.Fill;
+            ImageAffichage.Source = bitmap;
+
+            ImageAffichage.HorizontalAlignment = HorizontalAlignment.Center;
+            ImageAffichage.VerticalAlignment = VerticalAlignment.Center;
+
+            Grid.SetZIndex(ImageAffichage, 2);
+
+            return ImageAffichage;
+        }
+
+        private string RetournerNomSourceImage(Couleur couleur, Piece pieceAAfficher)
+        {
+            // On met le chemin relatif de l'image
+            StringBuilder nomImageSource = new StringBuilder();
+            if (couleur == Couleur.Rouge)
+                nomImageSource.Append("Images/Rouge/");
             else
-            {
-                PieceMobile PieceMobileAffichage = (PieceMobile)pieceAffichage;
-                labelAffichage.Content = PieceMobileAffichage.Force;
-            }
+                nomImageSource.Append("Images/Bleu/");
 
-            labelAffichage.FontSize = TAILLE_CASES_GRILLE * 0.6;
-            labelAffichage.FontWeight = FontWeights.Bold;
+            string nomImageSourceFinal;
 
-            if (pieceAffichage.EstDeCouleur(Couleur.Rouge))
-            {
-                labelAffichage.Foreground = Brushes.DarkRed;
-            }
+            // On s'assure que le nom de la pièce soit en minuscule
+            string nomPiece = pieceAAfficher.GetType().ToString();
+            nomPiece = nomPiece.Substring(9);
+            nomPiece = nomPiece.ToLower();
+
+            // On l'ajoute 
+            nomImageSource.Append(nomPiece);
+
+            if (couleur == Couleur.Rouge)
+                nomImageSource.Append("R.png");
             else
-            {
-                labelAffichage.Foreground = Brushes.Navy;
-            }
+                nomImageSource.Append("B.png");
 
-            labelAffichage.HorizontalAlignment = HorizontalAlignment.Center;
-            labelAffichage.VerticalAlignment = VerticalAlignment.Center;
+            // On converti en string pour le retourner
+            nomImageSourceFinal = nomImageSource.ToString();
 
-            Grid.SetZIndex(labelAffichage, 2);
-
-            return labelAffichage;
+            return nomImageSourceFinal;
         }
 
         private void DefinirZoneSelectionGrille()

@@ -29,7 +29,7 @@ namespace Stratego
 
       public GrilleJeu GrillePartie { get; private set; }
 
-      private List<List<Label>> GrillePieces { get; set; }
+      private List<List<Image>> GrillePieces { get; set; }
 
       private Rectangle SelectionActive { get; set; }
 
@@ -346,13 +346,13 @@ namespace Stratego
       private void InitialiserAffichagePieces()
       {
          Coordonnee position;
-         Label labelAffichage;
+         Image ImageAffichage;
 
-         GrillePieces = new List<List<Label>>();
+         GrillePieces = new List<List<Image>>();
 
          for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
          {
-            GrillePieces.Add(new List<Label>());
+            GrillePieces.Add(new List<Image>());
 
             for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
             {
@@ -360,14 +360,14 @@ namespace Stratego
 
                if (GrillePartie.EstCaseOccupee(position))
                {
-                  labelAffichage = CreerAffichagePiece(GrillePartie.ObtenirPiece(position));
+                  ImageAffichage = CreerAffichagePiece(GrillePartie.ObtenirPiece(position));
 
-                  Grid.SetColumn(labelAffichage, i);
-                  Grid.SetRow(labelAffichage, j);
+                  Grid.SetColumn(ImageAffichage, i);
+                  Grid.SetRow(ImageAffichage, j);
 
-                  grdPartie.Children.Add(labelAffichage);
+                  grdPartie.Children.Add(ImageAffichage);
 
-                  GrillePieces[i].Add(labelAffichage);
+                  GrillePieces[i].Add(ImageAffichage);
                }
                else
                {
@@ -377,42 +377,73 @@ namespace Stratego
          }
       }
 
-      private Label CreerAffichagePiece(Piece pieceAffichage)
-      {
-         Label labelAffichage = new Label();
+        private string RetournerNomSourceImage(Couleur couleur, Piece pieceAAfficher)
+        {
+            // On met le chemin relatif de l'image
+            StringBuilder nomImageSource = new StringBuilder();
+            if(couleur == Couleur.Rouge)
+                nomImageSource.Append("Images/Rouge/");
+            else
+                nomImageSource.Append("Images/Bleu/");
 
-         if (pieceAffichage is Bombe)
+            string nomImageSourceFinal;
+
+            // On s'assure que le nom de la pièce soit en minuscule
+            string nomPiece = pieceAAfficher.GetType().ToString();
+            nomPiece = nomPiece.ToLower();
+
+            // On l'ajoute 
+            nomImageSource.Append(pieceAAfficher);
+
+            if (couleur == Couleur.Rouge)
+                nomImageSource.Append("R.png");
+            else
+                nomImageSource.Append("B.png");
+
+            // On converti en string pour le retourner
+            nomImageSourceFinal = nomImageSource.ToString();
+
+            return nomImageSourceFinal;
+        }
+
+      private Image CreerAffichagePiece(Piece pieceAffichage)
+      {
+         Image ImageAffichage = new Image();
+
+            ImageAffichage.Source = new BitmapImage(new Uri(RetournerNomSourceImage(pieceAffichage.couleur, pieceAffichage), UriKind.Relative));
+
+         /*if (pieceAffichage is Bombe)
          {
-            labelAffichage.Content = "B";
+                ImageAffichage.Source("")
          }
          else if (pieceAffichage is Drapeau)
          {
-            labelAffichage.Content = "D";
+                ImageAffichage.Content = "D";
          }
          else
          {
             PieceMobile PieceMobileAffichage = (PieceMobile)pieceAffichage;
-            labelAffichage.Content = PieceMobileAffichage.Force;
-         }
+                ImageAffichage.Content = PieceMobileAffichage.Force;
+         }*/
 
-         labelAffichage.FontSize = TAILLE_CASES_GRILLE * 0.6;
-         labelAffichage.FontWeight = FontWeights.Bold;
+            /*ImageAffichage.FontSize = TAILLE_CASES_GRILLE * 0.6;
+            ImageAffichage.FontWeight = FontWeights.Bold;*/
 
-         if (pieceAffichage.EstDeCouleur(Couleur.Rouge))
+         /*if (pieceAffichage.EstDeCouleur(Couleur.Rouge))
          {
-            labelAffichage.Foreground = Brushes.DarkRed;
+                ImageAffichage.Foreground = Brushes.DarkRed;
          }
          else
          {
-            labelAffichage.Foreground = Brushes.Navy;
-         }
+                ImageAffichage.Foreground = Brushes.Navy;
+         }*/
 
-         labelAffichage.HorizontalAlignment = HorizontalAlignment.Center;
-         labelAffichage.VerticalAlignment = VerticalAlignment.Center;
+            ImageAffichage.HorizontalAlignment = HorizontalAlignment.Center;
+            ImageAffichage.VerticalAlignment = VerticalAlignment.Center;
 
-         Grid.SetZIndex(labelAffichage, 2);
+         Grid.SetZIndex(ImageAffichage, 2);
 
-         return labelAffichage;
+         return ImageAffichage;
       }
 
       private void ResoudreSelectionCase(object sender, MouseButtonEventArgs e)
@@ -476,7 +507,7 @@ namespace Stratego
          ReponseDeplacement reponse = new ReponseDeplacement();
 
          Piece attaquant;
-         Label affichageAttaquant;
+         Image affichageAttaquant;
 
          if (caseCible != caseDepart)
          {
