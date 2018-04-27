@@ -133,5 +133,32 @@
   <ItemGroup>
     <Resource Include="Images\Bleu\bombeB.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Rouge\bombeR.png" />
+    <Resource Include="Images\Rouge\capitaineR.png" />
+    <Resource Include="Images\Rouge\colonelR.png" />
+    <Resource Include="Images\Rouge\commandantR.png" />
+    <Resource Include="Images\Rouge\demineurR.png" />
+    <Resource Include="Images\Rouge\drapeauR.png" />
+    <Resource Include="Images\Rouge\eclaireurR.png" />
+    <Resource Include="Images\Rouge\espionR.png" />
+    <Resource Include="Images\Rouge\generalR.png" />
+    <Resource Include="Images\Rouge\lieutenantR.png" />
+    <Resource Include="Images\Rouge\marechalR.png" />
+    <Resource Include="Images\Rouge\sergentR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bleu\capitaineB.png" />
+    <Resource Include="Images\Bleu\colonelB.png" />
+    <Resource Include="Images\Bleu\commandantB.png" />
+    <Resource Include="Images\Bleu\demineurB.png" />
+    <Resource Include="Images\Bleu\drapeauB.png" />
+    <Resource Include="Images\Bleu\eclaireurB.png" />
+    <Resource Include="Images\Bleu\espionB.png" />
+    <Resource Include="Images\Bleu\generalB.png" />
+    <Resource Include="Images\Bleu\lieutenantB.png" />
+    <Resource Include="Images\Bleu\marechalB.png" />
+    <Resource Include="Images\Bleu\sergentB.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

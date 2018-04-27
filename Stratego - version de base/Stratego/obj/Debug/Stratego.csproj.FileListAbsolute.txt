@@ -68,3 +68,5 @@ D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration f
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.pdb
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.g.cs
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.baml
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.g.cs
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.baml
