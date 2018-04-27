@@ -52,7 +52,6 @@ D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.cspr
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\bin\Debug\Stratego.exe.config
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\bin\Debug\Stratego.exe
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\bin\Debug\Stratego.pdb
-D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\JeuStrategoControl.g.cs
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\MainWindow.g.cs
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\App.g.cs
@@ -70,3 +69,4 @@ D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvelleParti
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.baml
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.g.cs
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.baml
+D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache

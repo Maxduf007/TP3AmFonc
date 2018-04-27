@@ -340,7 +340,9 @@ namespace Stratego
          SelectionActive.Width = TAILLE_CASES_GRILLE;
          SelectionActive.Height = TAILLE_CASES_GRILLE;
          SelectionActive.Fill = Brushes.Yellow;
-         Grid.SetZIndex(SelectionActive, 0);
+            SelectionActive.Opacity = 0.4;
+
+         Grid.SetZIndex(SelectionActive, 3);
       }
 
       private void InitialiserAffichagePieces()
@@ -381,7 +383,7 @@ namespace Stratego
         {
             // On met le chemin relatif de l'image
             StringBuilder nomImageSource = new StringBuilder();
-            if(couleur == Couleur.Rouge)
+            if (couleur == Couleur.Rouge)
                 nomImageSource.Append("Images/Rouge/");
             else
                 nomImageSource.Append("Images/Bleu/");
@@ -390,10 +392,11 @@ namespace Stratego
 
             // On s'assure que le nom de la pièce soit en minuscule
             string nomPiece = pieceAAfficher.GetType().ToString();
+            nomPiece = nomPiece.Substring(9);
             nomPiece = nomPiece.ToLower();
 
             // On l'ajoute 
-            nomImageSource.Append(pieceAAfficher);
+            nomImageSource.Append(nomPiece);
 
             if (couleur == Couleur.Rouge)
                 nomImageSource.Append("R.png");
@@ -408,43 +411,23 @@ namespace Stratego
 
       private Image CreerAffichagePiece(Piece pieceAffichage)
       {
-         Image ImageAffichage = new Image();
+            Image ImageAffichage = new Image();
+            BitmapImage bitmap = new BitmapImage();
+            // Sert seulement à aller chercher des fonctions
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(RetournerNomSourceImage(pieceAffichage.couleur, pieceAffichage), UriKind.Relative);
+            bitmap.EndInit();
 
-            ImageAffichage.Source = new BitmapImage(new Uri(RetournerNomSourceImage(pieceAffichage.couleur, pieceAffichage), UriKind.Relative));
-
-         /*if (pieceAffichage is Bombe)
-         {
-                ImageAffichage.Source("")
-         }
-         else if (pieceAffichage is Drapeau)
-         {
-                ImageAffichage.Content = "D";
-         }
-         else
-         {
-            PieceMobile PieceMobileAffichage = (PieceMobile)pieceAffichage;
-                ImageAffichage.Content = PieceMobileAffichage.Force;
-         }*/
-
-            /*ImageAffichage.FontSize = TAILLE_CASES_GRILLE * 0.6;
-            ImageAffichage.FontWeight = FontWeights.Bold;*/
-
-         /*if (pieceAffichage.EstDeCouleur(Couleur.Rouge))
-         {
-                ImageAffichage.Foreground = Brushes.DarkRed;
-         }
-         else
-         {
-                ImageAffichage.Foreground = Brushes.Navy;
-         }*/
+            ImageAffichage.Stretch = Stretch.Fill;
+            ImageAffichage.Source = bitmap;
 
             ImageAffichage.HorizontalAlignment = HorizontalAlignment.Center;
             ImageAffichage.VerticalAlignment = VerticalAlignment.Center;
 
-         Grid.SetZIndex(ImageAffichage, 2);
+            Grid.SetZIndex(ImageAffichage, 2);
 
-         return ImageAffichage;
-      }
+            return ImageAffichage;
+        }
 
       private void ResoudreSelectionCase(object sender, MouseButtonEventArgs e)
       {
