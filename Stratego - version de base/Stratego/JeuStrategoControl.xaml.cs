@@ -16,120 +16,120 @@ using System.Windows.Shapes;
 
 namespace Stratego
 {
-   /// <summary>
-   /// Logique d'interaction pour JeuStrategoControl.xaml
-   /// </summary>
-   public partial class JeuStrategoControl : UserControl
-   {
-      #region Static
+    /// <summary>
+    /// Logique d'interaction pour JeuStrategoControl.xaml
+    /// </summary>
+    public partial class JeuStrategoControl : UserControl
+    {
+        #region Static
 
-      private const int TAILLE_CASES_GRILLE = 50;
+        private const int TAILLE_CASES_GRILLE = 50;
 
-      #endregion
+        #endregion
 
-      public GrilleJeu GrillePartie { get; private set; }
+        public GrilleJeu GrillePartie { get; private set; }
 
-      private List<List<Image>> GrillePieces { get; set; }
+        private List<List<Image>> GrillePieces { get; set; }
 
-      private Rectangle SelectionActive { get; set; }
+        private Rectangle SelectionActive { get; set; }
 
-      public Couleur TourJeu { get; private set; }
+        public Couleur TourJeu { get; private set; }
 
-      public Couleur CouleurJoueur { get; private set; }
+        public Couleur CouleurJoueur { get; private set; }
 
-      #region Code relié au patron observateur
+        #region Code relié au patron observateur
 
-      List<IObserver<JeuStrategoControl>> observers;
+        List<IObserver<JeuStrategoControl>> observers;
 
-      // Oui, une classe privée (et interne).
-      private class Unsubscriber : IDisposable
-      {
-         private List<IObserver<JeuStrategoControl>> _observers;
-         private IObserver<JeuStrategoControl> _observer;
+        // Oui, une classe privée (et interne).
+        private class Unsubscriber : IDisposable
+        {
+            private List<IObserver<JeuStrategoControl>> _observers;
+            private IObserver<JeuStrategoControl> _observer;
 
-         public Unsubscriber(List<IObserver<JeuStrategoControl>> observers, IObserver<JeuStrategoControl> observer)
-         {
-            this._observers = observers;
-            this._observer = observer;
-         }
+            public Unsubscriber(List<IObserver<JeuStrategoControl>> observers, IObserver<JeuStrategoControl> observer)
+            {
+                this._observers = observers;
+                this._observer = observer;
+            }
 
-         public void Dispose()
-         {
-            if (!(_observer == null)) _observers.Remove(_observer);
-         }
-      }
+            public void Dispose()
+            {
+                if (!(_observer == null)) _observers.Remove(_observer);
+            }
+        }
 
-      public IDisposable Subscribe(IObserver<JeuStrategoControl> observer)
-      {
-         if (!observers.Contains(observer))
-            observers.Add(observer);
+        public IDisposable Subscribe(IObserver<JeuStrategoControl> observer)
+        {
+            if (!observers.Contains(observer))
+                observers.Add(observer);
 
-         return new Unsubscriber(observers, observer);
-      }
+            return new Unsubscriber(observers, observer);
+        }
 
-      private void Notify()
-      {
-         foreach (IObserver<JeuStrategoControl> ob in observers)
-         {
-            ob.OnNext(this);
-         }
-      }
-      #endregion
+        private void Notify()
+        {
+            foreach (IObserver<JeuStrategoControl> ob in observers)
+            {
+                ob.OnNext(this);
+            }
+        }
+        #endregion
 
-      private IA_Stratego IA { get; set; }
+        private IA_Stratego IA { get; set; }
 
-      public JeuStrategoControl(Couleur couleurJoueur, Piece[,] TabPiecePositionJoueur)
-      {
+        public JeuStrategoControl(Couleur couleurJoueur, Piece[,] TabPiecePositionJoueur)
+        {
             CouleurJoueur = couleurJoueur;
 
-         InitializeComponent();
+            InitializeComponent();
 
-         GrillePartie = new GrilleJeu();
+            GrillePartie = new GrilleJeu();
 
-         DiviserGrilleJeu();
-         ColorerGrilleJeu();
-         DefinirZoneSelectionGrille();
-         InitialiserSelectionActive();
+            DiviserGrilleJeu();
+            ColorerGrilleJeu();
+            DefinirZoneSelectionGrille();
+            InitialiserSelectionActive();
 
-         PositionnerPieces(TabPiecePositionJoueur);
-         InitialiserAffichagePieces();
+            PositionnerPieces(TabPiecePositionJoueur);
+            InitialiserAffichagePieces();
 
-         #region Tests
+            #region Tests
 
-         // Code des tests initiaux.
-         /*
-         ReponseDeplacement deplacement;
+            // Code des tests initiaux.
+            /*
+            ReponseDeplacement deplacement;
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(0, 6), new Coordonnee(0, 5)); // Deplacement
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(0, 6), new Coordonnee(0, 5)); // Deplacement
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(0, 5), new Coordonnee(-1, 5)); // Coord invalide
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 6), new Coordonnee(2, 5)); // Lac
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(0, 5), new Coordonnee(-1, 5)); // Coord invalide
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 6), new Coordonnee(2, 5)); // Lac
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 6), new Coordonnee(3, 6)); // Piece vs sa propre couleur
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 6), new Coordonnee(3, 6)); // Piece vs sa propre couleur
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 6), new Coordonnee(1, 5));
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 5), new Coordonnee(1, 4));
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 4), new Coordonnee(1, 3)); // Prise par attaquant
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 6), new Coordonnee(1, 5));
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 5), new Coordonnee(1, 4));
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 4), new Coordonnee(1, 3)); // Prise par attaquant
 
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 3), new Coordonnee(1, 2));
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 2), new Coordonnee(1, 1));
-         // deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 1), new Coordonnee(1, 0)); // 2 pièces éliminées
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 1), new Coordonnee(2, 1));
-         deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 1), new Coordonnee(2, 0)); // Attaquant éliminé
-         */
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 3), new Coordonnee(1, 2));
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 2), new Coordonnee(1, 1));
+            // deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 1), new Coordonnee(1, 0)); // 2 pièces éliminées
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(1, 1), new Coordonnee(2, 1));
+            deplacement = GrillePartie.ResoudreDeplacement(new Coordonnee(2, 1), new Coordonnee(2, 0)); // Attaquant éliminé
+            */
 
-         #endregion
+            #endregion
 
-         TourJeu = Couleur.Rouge;
+            TourJeu = Couleur.Rouge;
 
 
-         // Initialise la liste d'observateurs.
-         observers = new List<IObserver<JeuStrategoControl>>();
+            // Initialise la liste d'observateurs.
+            observers = new List<IObserver<JeuStrategoControl>>();
 
-         // Initialiser l'IA.
-         
+            // Initialiser l'IA.
 
-            if(CouleurJoueur != Couleur.Rouge)
+
+            if (CouleurJoueur != Couleur.Rouge)
             {
                 IA = new IA_Stratego(this, Couleur.Rouge);
                 Thread executionIA = new Thread(LancerIA);
@@ -140,12 +140,12 @@ namespace Stratego
 
         }
 
-      /// <summary>
-      /// Cette méthode existe principalement pour que le jeu soit testable.
-      /// On ne veut évidemment pas toujours commencer une partie avec exactement les même positions.
-      /// </summary>
-      private void PositionnerPieces(Piece[,] TabPiecePositionJoueur)
-      {
+        /// <summary>
+        /// Cette méthode existe principalement pour que le jeu soit testable.
+        /// On ne veut évidemment pas toujours commencer une partie avec exactement les même positions.
+        /// </summary>
+        private void PositionnerPieces(Piece[,] TabPiecePositionJoueur)
+        {
             List<Piece> piecesRouges = new List<Piece>();
             List<Piece> piecesBleues = new List<Piece>();
 
@@ -167,7 +167,7 @@ namespace Stratego
             }
             else
             {
-                if(CouleurJoueur == Couleur.Rouge)
+                if (CouleurJoueur == Couleur.Rouge)
                 {
                     foreach (Piece pieceTab in TabPiecePositionJoueur)
                     {
@@ -195,7 +195,7 @@ namespace Stratego
             }
 
 
-            if(CouleurJoueur == Couleur.Rouge)
+            if (CouleurJoueur == Couleur.Rouge)
             {
                 GrillePartie.PositionnerPieces(piecesRouges, true);
                 GrillePartie.PositionnerPieces(piecesBleues, false);
@@ -207,177 +207,177 @@ namespace Stratego
                 GrillePartie.PositionnerPieces(piecesRouges, false);
             }
 
-         
-            
-      }
 
-      private void DiviserGrilleJeu()
-      {
-         ColumnDefinition colonneDef;
-         RowDefinition ligneDef;
 
-         for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
-         {
-            colonneDef = new ColumnDefinition();
-            colonneDef.Width = new GridLength(TAILLE_CASES_GRILLE);
-            grdPartie.ColumnDefinitions.Add(colonneDef);
+        }
 
-            ligneDef = new RowDefinition();
-            ligneDef.Height = new GridLength(TAILLE_CASES_GRILLE);
-            grdPartie.RowDefinitions.Add(ligneDef);
-         }
-      }
+        private void DiviserGrilleJeu()
+        {
+            ColumnDefinition colonneDef;
+            RowDefinition ligneDef;
 
-      private void ColorerGrilleJeu()
-      {
-         Rectangle ligne;
-
-         for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
-         {
-            grdPartie.Children.Add(CreerLigneGrille(i, true));
-
-            for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
+            for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
             {
-               grdPartie.Children.Add(CreerFondCase(i, j));
+                colonneDef = new ColumnDefinition();
+                colonneDef.Width = new GridLength(TAILLE_CASES_GRILLE);
+                grdPartie.ColumnDefinitions.Add(colonneDef);
 
-               if (i == 0)
-               {
-                  grdPartie.Children.Add(CreerLigneGrille(j, false));
-               }
+                ligneDef = new RowDefinition();
+                ligneDef.Height = new GridLength(TAILLE_CASES_GRILLE);
+                grdPartie.RowDefinitions.Add(ligneDef);
             }
-         }
+        }
 
-         ligne = CreerLigneGrille(0, true);
-         ligne.HorizontalAlignment = HorizontalAlignment.Left;
-         grdPartie.Children.Add(ligne);
+        private void ColorerGrilleJeu()
+        {
+            Rectangle ligne;
 
-         ligne = CreerLigneGrille(0, false);
-         ligne.VerticalAlignment = VerticalAlignment.Top;
-         grdPartie.Children.Add(ligne);
-      }
-
-      private Rectangle CreerLigneGrille(int position, bool estColonne)
-      {
-         Rectangle ligne = new Rectangle();
-         ligne.Fill = Brushes.Gainsboro;
-         Grid.SetZIndex(ligne, 1);
-
-         if (estColonne)
-         {
-            ligne.Width = 1;
-            ligne.Height = 10 * TAILLE_CASES_GRILLE;
-            ligne.HorizontalAlignment = HorizontalAlignment.Right;
-            Grid.SetColumn(ligne, position);
-            Grid.SetRow(ligne, 0);
-            Grid.SetRowSpan(ligne, 10);
-         }
-         else
-         {
-            ligne.Width = 10 * TAILLE_CASES_GRILLE;
-            ligne.Height = 1;
-            ligne.VerticalAlignment = VerticalAlignment.Bottom;
-            Grid.SetColumn(ligne, 0);
-            Grid.SetColumnSpan(ligne, 10);
-            Grid.SetRow(ligne, position);
-         }
-
-         return ligne;
-      }
-
-      private Rectangle CreerFondCase(int colonne, int rangee)
-      {
-         Rectangle rect = new Rectangle();
-
-         rect.Width = TAILLE_CASES_GRILLE;
-         rect.Height = TAILLE_CASES_GRILLE;
-
-         if (GrillePartie.EstCoordonneeLac(new Coordonnee(colonne, rangee)))
-         {
-            rect.Fill = Brushes.CornflowerBlue;
-         }
-         else
-         {
-            rect.Fill = Brushes.OliveDrab;
-         }
-
-         Grid.SetZIndex(rect, 0);
-         Grid.SetColumn(rect, colonne);
-         Grid.SetRow(rect, rangee);
-
-         return rect;
-      }
-
-      private void DefinirZoneSelectionGrille()
-      {
-         Rectangle rect;
-
-         for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
-         {
-            for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
+            for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
             {
-               rect = new Rectangle();
+                grdPartie.Children.Add(CreerLigneGrille(i, true));
 
-               rect.Width = TAILLE_CASES_GRILLE;
-               rect.Height = TAILLE_CASES_GRILLE;
-               rect.Fill = Brushes.Transparent;
-               Grid.SetZIndex(rect, 5);
-               Grid.SetColumn(rect, i);
-               Grid.SetRow(rect, j);
+                for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
+                {
+                    grdPartie.Children.Add(CreerFondCase(i, j));
 
-               grdPartie.Children.Add(rect);
-
-               rect.MouseLeftButtonUp += ResoudreSelectionCase;
+                    if (i == 0)
+                    {
+                        grdPartie.Children.Add(CreerLigneGrille(j, false));
+                    }
+                }
             }
 
-         }
+            ligne = CreerLigneGrille(0, true);
+            ligne.HorizontalAlignment = HorizontalAlignment.Left;
+            grdPartie.Children.Add(ligne);
 
-      }
+            ligne = CreerLigneGrille(0, false);
+            ligne.VerticalAlignment = VerticalAlignment.Top;
+            grdPartie.Children.Add(ligne);
+        }
 
-      private void InitialiserSelectionActive()
-      {
-         SelectionActive = new Rectangle();
+        private Rectangle CreerLigneGrille(int position, bool estColonne)
+        {
+            Rectangle ligne = new Rectangle();
+            ligne.Fill = Brushes.Gainsboro;
+            Grid.SetZIndex(ligne, 1);
 
-         SelectionActive.Width = TAILLE_CASES_GRILLE;
-         SelectionActive.Height = TAILLE_CASES_GRILLE;
-         SelectionActive.Fill = Brushes.Yellow;
+            if (estColonne)
+            {
+                ligne.Width = 1;
+                ligne.Height = 10 * TAILLE_CASES_GRILLE;
+                ligne.HorizontalAlignment = HorizontalAlignment.Right;
+                Grid.SetColumn(ligne, position);
+                Grid.SetRow(ligne, 0);
+                Grid.SetRowSpan(ligne, 10);
+            }
+            else
+            {
+                ligne.Width = 10 * TAILLE_CASES_GRILLE;
+                ligne.Height = 1;
+                ligne.VerticalAlignment = VerticalAlignment.Bottom;
+                Grid.SetColumn(ligne, 0);
+                Grid.SetColumnSpan(ligne, 10);
+                Grid.SetRow(ligne, position);
+            }
+
+            return ligne;
+        }
+
+        private Rectangle CreerFondCase(int colonne, int rangee)
+        {
+            Rectangle rect = new Rectangle();
+
+            rect.Width = TAILLE_CASES_GRILLE;
+            rect.Height = TAILLE_CASES_GRILLE;
+
+            if (GrillePartie.EstCoordonneeLac(new Coordonnee(colonne, rangee)))
+            {
+                rect.Fill = Brushes.CornflowerBlue;
+            }
+            else
+            {
+                rect.Fill = Brushes.OliveDrab;
+            }
+
+            Grid.SetZIndex(rect, 0);
+            Grid.SetColumn(rect, colonne);
+            Grid.SetRow(rect, rangee);
+
+            return rect;
+        }
+
+        private void DefinirZoneSelectionGrille()
+        {
+            Rectangle rect;
+
+            for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
+            {
+                for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
+                {
+                    rect = new Rectangle();
+
+                    rect.Width = TAILLE_CASES_GRILLE;
+                    rect.Height = TAILLE_CASES_GRILLE;
+                    rect.Fill = Brushes.Transparent;
+                    Grid.SetZIndex(rect, 5);
+                    Grid.SetColumn(rect, i);
+                    Grid.SetRow(rect, j);
+
+                    grdPartie.Children.Add(rect);
+
+                    rect.MouseLeftButtonUp += ResoudreSelectionCase;
+                }
+
+            }
+
+        }
+
+        private void InitialiserSelectionActive()
+        {
+            SelectionActive = new Rectangle();
+
+            SelectionActive.Width = TAILLE_CASES_GRILLE;
+            SelectionActive.Height = TAILLE_CASES_GRILLE;
+            SelectionActive.Fill = Brushes.Yellow;
             SelectionActive.Opacity = 0.4;
 
-         Grid.SetZIndex(SelectionActive, 3);
-      }
+            Grid.SetZIndex(SelectionActive, 3);
+        }
 
-      private void InitialiserAffichagePieces()
-      {
-         Coordonnee position;
-         Image ImageAffichage;
+        private void InitialiserAffichagePieces()
+        {
+            Coordonnee position;
+            Image ImageAffichage;
 
-         GrillePieces = new List<List<Image>>();
+            GrillePieces = new List<List<Image>>();
 
-         for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
-         {
-            GrillePieces.Add(new List<Image>());
-
-            for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
+            for (int i = 0; i < GrilleJeu.TAILLE_GRILLE_JEU; i++)
             {
-               position = new Coordonnee(i, j);
+                GrillePieces.Add(new List<Image>());
 
-               if (GrillePartie.EstCaseOccupee(position))
-               {
-                  ImageAffichage = CreerAffichagePiece(GrillePartie.ObtenirPiece(position));
+                for (int j = 0; j < GrilleJeu.TAILLE_GRILLE_JEU; j++)
+                {
+                    position = new Coordonnee(i, j);
 
-                  Grid.SetColumn(ImageAffichage, i);
-                  Grid.SetRow(ImageAffichage, j);
+                    if (GrillePartie.EstCaseOccupee(position))
+                    {
+                        ImageAffichage = CreerAffichagePiece(GrillePartie.ObtenirPiece(position));
 
-                  grdPartie.Children.Add(ImageAffichage);
+                        Grid.SetColumn(ImageAffichage, i);
+                        Grid.SetRow(ImageAffichage, j);
 
-                  GrillePieces[i].Add(ImageAffichage);
-               }
-               else
-               {
-                  GrillePieces[i].Add(null);
-               }
+                        grdPartie.Children.Add(ImageAffichage);
+
+                        GrillePieces[i].Add(ImageAffichage);
+                    }
+                    else
+                    {
+                        GrillePieces[i].Add(null);
+                    }
+                }
             }
-         }
-      }
+        }
 
         private string RetournerNomSourceImage(Couleur couleur, Piece pieceAAfficher)
         {
@@ -392,7 +392,7 @@ namespace Stratego
             string nomImageSourceFinal;
 
             // Si la pièce dans le jeu n'a pas été révélé, on la cache.
-            if(pieceAAfficher.EstRevele || pieceAAfficher.couleur == CouleurJoueur )
+            if (pieceAAfficher.EstRevele || pieceAAfficher.couleur == CouleurJoueur)
             {
                 // On s'assure que le nom de la pièce soit en minuscule
                 nomPiece = pieceAAfficher.GetType().ToString();
@@ -419,8 +419,8 @@ namespace Stratego
             return nomImageSourceFinal;
         }
 
-      private Image CreerAffichagePiece(Piece pieceAffichage)
-      {
+        private Image CreerAffichagePiece(Piece pieceAffichage)
+        {
             Image ImageAffichage = new Image();
             BitmapImage bitmap = new BitmapImage();
             // Sert seulement à aller chercher des fonctions
@@ -439,118 +439,118 @@ namespace Stratego
             return ImageAffichage;
         }
 
-      private void ResoudreSelectionCase(object sender, MouseButtonEventArgs e)
-      {
+        private void ResoudreSelectionCase(object sender, MouseButtonEventArgs e)
+        {
             // Reçoit le rectangle sélectionner par la souris
-         Rectangle caseSelectionnee = (Rectangle)sender;
+            Rectangle caseSelectionnee = (Rectangle)sender;
 
-         Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
-         Coordonnee pointActif;
+            Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
+            Coordonnee pointActif;
 
-         ReponseDeplacement reponse = new ReponseDeplacement();
+            ReponseDeplacement reponse = new ReponseDeplacement();
 
-         if (TourJeu == CouleurJoueur)
-         {
-            if (grdPartie.Children.Contains(SelectionActive))
+            if (TourJeu == CouleurJoueur)
             {
-               pointActif = new Coordonnee(Grid.GetColumn(SelectionActive), Grid.GetRow(SelectionActive));
+                if (grdPartie.Children.Contains(SelectionActive))
+                {
+                    pointActif = new Coordonnee(Grid.GetColumn(SelectionActive), Grid.GetRow(SelectionActive));
 
-               // Permet de déselectionner notre choix si on change d'idée
-               if (pointSelectionne.EstEgal(pointActif))
-               {
-                  grdPartie.Children.Remove(SelectionActive);
-               }
-               else
-               {
-                   // On tente d'exécuter le coup
-                  reponse = ExecuterCoup(pointActif, pointSelectionne);
+                    // Permet de déselectionner notre choix si on change d'idée
+                    if (pointSelectionne.EstEgal(pointActif))
+                    {
+                        grdPartie.Children.Remove(SelectionActive);
+                    }
+                    else
+                    {
+                        // On tente d'exécuter le coup
+                        reponse = ExecuterCoup(pointActif, pointSelectionne);
 
-                        
-                  if (reponse.DeplacementFait)
-                  {
-                     grdPartie.Children.Remove(SelectionActive);
-                  }
-               }
+
+                        if (reponse.DeplacementFait)
+                        {
+                            grdPartie.Children.Remove(SelectionActive);
+                        }
+                    }
+                }
+                else
+                {
+                    if (GrillePartie.EstCaseOccupee(pointSelectionne)
+                       && GrillePartie.ObtenirCouleurPiece(pointSelectionne) == CouleurJoueur)
+                    {
+                        Grid.SetColumn(SelectionActive, (int)pointSelectionne.X);
+                        Grid.SetRow(SelectionActive, (int)pointSelectionne.Y);
+
+                        grdPartie.Children.Add(SelectionActive);
+                    }
+                }
             }
-            else
-            {
-               if (GrillePartie.EstCaseOccupee(pointSelectionne)
-                  && GrillePartie.ObtenirCouleurPiece(pointSelectionne) == CouleurJoueur)
-               {
-                  Grid.SetColumn(SelectionActive, (int)pointSelectionne.X);
-                  Grid.SetRow(SelectionActive, (int)pointSelectionne.Y);
-
-                  grdPartie.Children.Add(SelectionActive);
-               }
-            }
-         }
 
 
 
-         if(reponse.FinPartie)
+            if (reponse.FinPartie)
             {
                 FinPartie();
             }
-      }
+        }
 
-      public ReponseDeplacement ExecuterCoup(Coordonnee caseDepart, Coordonnee caseCible)
-      {
-         Thread executionIA = new Thread(LancerIA);
-            
+        public ReponseDeplacement ExecuterCoup(Coordonnee caseDepart, Coordonnee caseCible)
+        {
+            Thread executionIA = new Thread(LancerIA);
 
-         ReponseDeplacement reponse = new ReponseDeplacement();
 
-         Piece attaquant;
-         Image affichageAttaquant;
+            ReponseDeplacement reponse = new ReponseDeplacement();
 
-         if (caseCible != caseDepart)
-         {
-            // Prendre les informations avant de faire le coup.
-            attaquant = GrillePartie.ObtenirPiece(caseDepart);
-            affichageAttaquant = GrillePieces[(int)caseDepart.X][(int)caseDepart.Y];
+            Piece attaquant;
+            Image affichageAttaquant;
 
-            reponse = GrillePartie.ResoudreDeplacement(caseDepart, caseCible);
-
-            if (reponse.DeplacementFait)
+            if (caseCible != caseDepart)
             {
+                // Prendre les informations avant de faire le coup.
+                attaquant = GrillePartie.ObtenirPiece(caseDepart);
+                affichageAttaquant = GrillePieces[(int)caseDepart.X][(int)caseDepart.Y];
 
-               // Retrait de la pièce attaquante de sa position d'origine.
-               grdPartie.Children.Remove(affichageAttaquant);
-               GrillePieces[(int)caseDepart.X][(int)caseDepart.Y] = null;
+                reponse = GrillePartie.ResoudreDeplacement(caseDepart, caseCible);
+
+                if (reponse.DeplacementFait)
+                {
+
+                    // Retrait de la pièce attaquante de sa position d'origine.
+                    grdPartie.Children.Remove(affichageAttaquant);
+                    GrillePieces[(int)caseDepart.X][(int)caseDepart.Y] = null;
 
 
-               if (reponse.PiecesEliminees.Count == 2)
-               {
-                  // Retrait de la pièce attaquée.
-                  grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
-                  GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
-               }
-               else if (reponse.PiecesEliminees.Count == 1 && reponse.PiecesEliminees[0] != attaquant
-                       || reponse.PiecesEliminees.Count == 0)
+                    if (reponse.PiecesEliminees.Count == 2)
                     {
-                          // Remplacement de la pièce attaquée par la pièce attaquante.
-                          grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
-                          GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
-
-                            
-                            if (reponse.PiecesEliminees.Count == 1)
-                            {
-                                attaquant.EstRevele = true;
-                                affichageAttaquant = CreerAffichagePiece(attaquant);
-                            }
-
-                          GrillePieces[(int)caseCible.X][(int)caseCible.Y] = affichageAttaquant;
-
-                          Grid.SetColumn(affichageAttaquant, (int)caseCible.X);
-                          Grid.SetRow(affichageAttaquant, (int)caseCible.Y);
-                          grdPartie.Children.Add(affichageAttaquant);
-                          
-                    
+                        // Retrait de la pièce attaquée.
+                        grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
+                        GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
                     }
-                    else if(reponse.PiecesEliminees[0] == attaquant)
+                    else if (reponse.PiecesEliminees.Count == 1 && reponse.PiecesEliminees[0] != attaquant
+                            || reponse.PiecesEliminees.Count == 0)
+                    {
+                        // Remplacement de la pièce attaquée par la pièce attaquante.
+                        grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
+                        GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
+
+
+                        if (reponse.PiecesEliminees.Count == 1)
+                        {
+                            attaquant.EstRevele = true;
+                            affichageAttaquant = CreerAffichagePiece(attaquant);
+                        }
+
+                        GrillePieces[(int)caseCible.X][(int)caseCible.Y] = affichageAttaquant;
+
+                        Grid.SetColumn(affichageAttaquant, (int)caseCible.X);
+                        Grid.SetRow(affichageAttaquant, (int)caseCible.Y);
+                        grdPartie.Children.Add(affichageAttaquant);
+
+
+                    }
+                    else if (reponse.PiecesEliminees[0] == attaquant)
                     {
                         Piece Occupant = GrillePartie.ObtenirPiece(caseCible);
-                        
+
 
                         // On révèle les informations de la pièce attaqué.
                         Occupant.EstRevele = true;
@@ -567,23 +567,30 @@ namespace Stratego
 
                     }
 
-                ChangerTourJeu();
-                
-                if(TourJeu == IA.CouleurIA)
-                {
-                    executionIA.Start();
+                    ChangerTourJeu();
+
+                    if (TourJeu == IA.CouleurIA)
+                    {
+                        executionIA.Start();
+                    }
+
                 }
+            }
+            else
+            {
+                reponse.DeplacementFait = false;
+            }
 
-                } 
-         }
-         else
-         {
-            reponse.DeplacementFait = false;
-         }
+            return reponse;
+        }
 
-         return reponse;
-      }
+        private void MettreAJourPionAdverseEliminees(ReponseDeplacement reponse)
+        {
 
+
+            switch()
+            ((MainWindow)App.Current.MainWindow).
+        }
       private void LancerIA()
       {
          // Pause d'une seconde, pour permettre à l'humain de mieux comprendre le déroulement.
