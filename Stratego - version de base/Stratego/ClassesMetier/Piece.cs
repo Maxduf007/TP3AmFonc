@@ -10,22 +10,15 @@ namespace Stratego
    {
       public Couleur couleur { get; private set; }
 
+        public bool EstRevele { get; set; }
+
 
       public Piece(Couleur couleurPiece)
       {
          couleur = couleurPiece;
+            EstRevele = false;
          //Force = forcePiece;
       }
-
-      /*public bool EstRouge()
-      {
-         return (couleur == Couleur.Rouge);
-      }*/
-
-      /*public bool EstBleu()
-      {
-         return !EstRouge();
-      }*/
 
         public bool EstDeCouleur(Couleur couleurRecherche)
         {

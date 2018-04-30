@@ -381,6 +381,7 @@ namespace Stratego
 
         private string RetournerNomSourceImage(Couleur couleur, Piece pieceAAfficher)
         {
+            string nomPiece;
             // On met le chemin relatif de l'image
             StringBuilder nomImageSource = new StringBuilder();
             if (couleur == Couleur.Rouge)
@@ -390,10 +391,19 @@ namespace Stratego
 
             string nomImageSourceFinal;
 
-            // On s'assure que le nom de la pièce soit en minuscule
-            string nomPiece = pieceAAfficher.GetType().ToString();
-            nomPiece = nomPiece.Substring(9);
-            nomPiece = nomPiece.ToLower();
+            // Si la pièce dans le jeu n'a pas été révélé, on la cache.
+            if(pieceAAfficher.EstRevele || pieceAAfficher.couleur == CouleurJoueur )
+            {
+                // On s'assure que le nom de la pièce soit en minuscule
+                nomPiece = pieceAAfficher.GetType().ToString();
+                nomPiece = nomPiece.Substring(9);
+                nomPiece = nomPiece.ToLower();
+
+            }
+            else
+            {
+                nomPiece = "endos";
+            }
 
             // On l'ajoute 
             nomImageSource.Append(nomPiece);
@@ -453,7 +463,6 @@ namespace Stratego
                else
                {
                    // On tente d'exécuter le coup
-                   // le tour ne change pas un moment donné
                   reponse = ExecuterCoup(pointActif, pointSelectionne);
 
                         
@@ -475,6 +484,8 @@ namespace Stratego
                }
             }
          }
+
+
 
          if(reponse.FinPartie)
             {
@@ -507,6 +518,7 @@ namespace Stratego
                grdPartie.Children.Remove(affichageAttaquant);
                GrillePieces[(int)caseDepart.X][(int)caseDepart.Y] = null;
 
+
                if (reponse.PiecesEliminees.Count == 2)
                {
                   // Retrait de la pièce attaquée.
@@ -520,12 +532,31 @@ namespace Stratego
                   grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
                   GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
 
-                  GrillePieces[(int)caseCible.X][(int)caseCible.Y] = affichageAttaquant;
+                  GrillePieces[(int)caseCible.X][(int)caseCible.Y] = CreerAffichagePiece(attaquant);
 
                   Grid.SetColumn(affichageAttaquant, (int)caseCible.X);
                   Grid.SetRow(affichageAttaquant, (int)caseCible.Y);
                   grdPartie.Children.Add(affichageAttaquant);
-               }
+
+                  attaquant.EstRevele = true;
+                }
+               /*else if(reponse.PiecesEliminees[0] == attaquant)
+                    {
+                        Piece Occupant = GrillePartie.ObtenirPiece(caseCible);
+                        Image ImageOccupant = CreerAffichagePiece(Occupant);
+
+                        // On révèle les informations de la pièce attaqué.
+                        Occupant.EstRevele = true;
+                        grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
+                        GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
+
+                        GrillePieces[(int)caseCible.X][(int)caseCible.Y] = ImageOccupant;
+
+                        Grid.SetColumn(ImageOccupant, (int)caseCible.X);
+                        Grid.SetRow(ImageOccupant, (int)caseCible.Y);
+                        grdPartie.Children.Add(ImageOccupant);
+
+                    }*/
 
                 ChangerTourJeu();
                 
@@ -534,16 +565,6 @@ namespace Stratego
                     executionIA.Start();
                 }
 
-                    // Permet de faire jouer l'IA.
-                    /*if (TourJeu == Couleur.Rouge)
-                    {
-
-                       executionIA.Start();
-                    }
-                    else
-                    {
-                       ChangerTourJeu();
-                    }*/
                 } 
          }
          else

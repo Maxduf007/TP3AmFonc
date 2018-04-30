@@ -141,6 +141,7 @@ namespace Stratego
                 //Modif: Si la pièce est mobile, on effectue le déplacement
             if (caseDepart.EstOccupe() && EstDeplacementPermis(coordonneeDepart, coordonneeCible) && caseDepart.Occupant is PieceMobile)
             {
+
                // Faire le déplacement.
                reponse.PiecesEliminees = caseCible.ResoudreAttaque((PieceMobile)caseDepart.Occupant);
 
