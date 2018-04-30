@@ -32,7 +32,6 @@ H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Str
 H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.csproj.CoreCompileInputs.cache
 H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.exe
 H:\Session 4\Amélioration\TP3\Stratego - version de base\Stratego\obj\Debug\Stratego.pdb
-D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\JeuStrategoControl.g.cs
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\MainWindow.g.cs
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\App.g.cs
@@ -69,3 +68,4 @@ D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvelleParti
 D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.baml
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.g.cs
 D:\OneDrive - CEGEP de Saint-JEROME\Cegep Informatique\Session 4\Amélioration fonctionnelles\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\NouvellePartieWindow.baml
+D:\1227352\TP3AmFonc\Stratego - version de base\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache

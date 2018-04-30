@@ -527,26 +527,35 @@ namespace Stratego
                }
                else if (reponse.PiecesEliminees.Count == 1 && reponse.PiecesEliminees[0] != attaquant
                        || reponse.PiecesEliminees.Count == 0)
-               {
-                  // Remplacement de la pièce attaquée par la pièce attaquante.
-                  grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
-                  GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
+                    {
+                          // Remplacement de la pièce attaquée par la pièce attaquante.
+                          grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
+                          GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
 
-                  GrillePieces[(int)caseCible.X][(int)caseCible.Y] = CreerAffichagePiece(attaquant);
+                            
+                            if (reponse.PiecesEliminees.Count == 1)
+                            {
+                                attaquant.EstRevele = true;
+                                affichageAttaquant = CreerAffichagePiece(attaquant);
+                            }
 
-                  Grid.SetColumn(affichageAttaquant, (int)caseCible.X);
-                  Grid.SetRow(affichageAttaquant, (int)caseCible.Y);
-                  grdPartie.Children.Add(affichageAttaquant);
+                          GrillePieces[(int)caseCible.X][(int)caseCible.Y] = affichageAttaquant;
 
-                  attaquant.EstRevele = true;
-                }
-               /*else if(reponse.PiecesEliminees[0] == attaquant)
+                          Grid.SetColumn(affichageAttaquant, (int)caseCible.X);
+                          Grid.SetRow(affichageAttaquant, (int)caseCible.Y);
+                          grdPartie.Children.Add(affichageAttaquant);
+                          
+                    
+                    }
+                    else if(reponse.PiecesEliminees[0] == attaquant)
                     {
                         Piece Occupant = GrillePartie.ObtenirPiece(caseCible);
-                        Image ImageOccupant = CreerAffichagePiece(Occupant);
+                        
 
                         // On révèle les informations de la pièce attaqué.
                         Occupant.EstRevele = true;
+                        Image ImageOccupant = CreerAffichagePiece(Occupant);
+
                         grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
                         GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
 
@@ -556,7 +565,7 @@ namespace Stratego
                         Grid.SetRow(ImageOccupant, (int)caseCible.Y);
                         grdPartie.Children.Add(ImageOccupant);
 
-                    }*/
+                    }
 
                 ChangerTourJeu();
                 

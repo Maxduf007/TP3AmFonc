@@ -44,12 +44,9 @@ namespace Stratego
 
          if (Occupant != null)
          {
-                // On rend les pièces visibles puisqu'il y a contact
-                Occupant.EstRevele = true;
-                attaquant.EstRevele = true;
 
                 // Dans le cas que l'occupant est une pièce mobile, on compare la force
-                if (Occupant is PieceMobile)
+            if (Occupant is PieceMobile)
             {
                 PieceMobile OccupantMobile = (PieceMobile)Occupant;
 
@@ -82,7 +79,6 @@ namespace Stratego
                         else
                         {
                             piecesEliminees.Add(attaquant);
-                            Occupant = attaquant;
                         }
                 }
                 else
