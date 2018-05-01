@@ -37,6 +37,8 @@ namespace Stratego
 
         public Couleur CouleurJoueur { get; private set; }
 
+        public List<Piece> LstPiecesEliminees { get; set; }
+
         #region Code relié au patron observateur
 
         List<IObserver<JeuStrategoControl>> observers;
@@ -547,7 +549,7 @@ namespace Stratego
 
 
                     }
-                    else if (reponse.PiecesEliminees[0] == attaquant)
+                    else if (reponse.PiecesEliminees[0] == attaquant) // Lorsque la pièce attaquante perd.
                     {
                         Piece Occupant = GrillePartie.ObtenirPiece(caseCible);
 
@@ -586,10 +588,28 @@ namespace Stratego
 
         private void MettreAJourPionAdverseEliminees(ReponseDeplacement reponse)
         {
+            List<Piece> PieceElimineeAjustement;
+            StringBuilder strBldNomlbl = new StringBuilder("lbl");
+            /*// On crée un predicat pour vérifier dans LstPiecesEliminees si la pièce adverse qui vient d'être éliminée
+            // a un type qui correspond à une autre pièce éliminée dans la liste.
+            Predicate<Piece> PredicatePiece = (Piece p) => { return p == reponse.PiecesEliminees[0]; }; //lambda*/
 
+            PieceElimineeAjustement = LstPiecesEliminees.FindAll(p => p == reponse.PiecesEliminees[0]);
+            
+            if(PieceElimineeAjustement.Count() > 0)
+            {
+                PieceElimineeAjustement.Add(reponse.PiecesEliminees[0]);
 
-            switch()
-            ((MainWindow)App.Current.MainWindow).
+                // On récupère le nom du type pour créer un nom de label
+                string strNomLbl = PieceElimineeAjustement.GetType().ToString();
+                strNomLbl = strNomLbl.Substring(9);
+                strBldNomlbl.Append(strNomLbl);
+
+                ((MainWindow)App.Current.MainWindow).
+
+            }
+                
+           
         }
       private void LancerIA()
       {
