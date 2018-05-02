@@ -8,40 +8,7 @@
         Title="MainWindow" Height="600" Width="660">
     <Grid Name="grdPrincipale">
         <Button Name="btnNouvellePartie" Content="Nouvelle partie" HorizontalAlignment="Left" Margin="36,519,0,0" VerticalAlignment="Top" Width="102" Height="40" Click="btnNouvellePartie_Click"/>
-        <Label Content="Pièces éliminées" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="524,10,0,0" VerticalAlignment="Top" Width="118"/>
-
-        <Label Content="Maréchal" HorizontalAlignment="Left" Margin="524,36,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblMarechal" Content="0" HorizontalAlignment="Left" Margin="617,36,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Général" HorizontalAlignment="Left" Margin="524,62,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblGeneral" Content="0" HorizontalAlignment="Left" Margin="617,62,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Colonels" HorizontalAlignment="Left" Margin="524,88,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblColonel" Content="0" HorizontalAlignment="Left" Margin="617,88,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Commandants" HorizontalAlignment="Left" Margin="524,114,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label Name="lblCommandant" Content="0" HorizontalAlignment="Left" Margin="617,114,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Capitaines" HorizontalAlignment="Left" Margin="524,140,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblCapitaine" Content="0" HorizontalAlignment="Left" Margin="617,140,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Lieutenants" HorizontalAlignment="Left" Margin="524,166,0,0" VerticalAlignment="Top" Width="79"/>
-        <Label Name="lblLieutenant" Content="0" HorizontalAlignment="Left" Margin="617,166,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Sergents" HorizontalAlignment="Left" Margin="524,192,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblSergent" Content="0" HorizontalAlignment="Left" Margin="617,192,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Démineurs" HorizontalAlignment="Left" Margin="524,218,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblDemineur" Content="0" HorizontalAlignment="Left" Margin="617,218,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Éclaireurs" HorizontalAlignment="Left" Margin="524,244,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblEclaireur" Content="0" HorizontalAlignment="Left" Margin="617,244,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Espion" HorizontalAlignment="Left" Margin="524,270,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblEspion" Content="0" HorizontalAlignment="Left" Margin="617,270,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Bombes" HorizontalAlignment="Left" Margin="524,296,0,0" VerticalAlignment="Top" Width="68"/>
-        <Label Name="lblBombe" Content="0" HorizontalAlignment="Left" Margin="617,296,0,0" VerticalAlignment="Top" Width="25"/>
+        <DataGrid HorizontalAlignment="Left" Height="233" Margin="563,10,0,0" VerticalAlignment="Top" Width="79"/>
 
 
     </Grid>
