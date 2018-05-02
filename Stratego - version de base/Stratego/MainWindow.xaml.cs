@@ -26,7 +26,7 @@ namespace Stratego
         {
             InitializeComponent();
 
-            Jeu = new JeuStrategoControl(CouleurJoueur, TabPiecePositionJoueur);
+            Jeu = new JeuStrategoControl(CouleurJoueur, TabPiecePositionJoueur, this);
 
             grdPrincipale.Children.Add(Jeu);
         }
@@ -45,6 +45,45 @@ namespace Stratego
             {
                 Application.Current.Shutdown();
                 System.Windows.Forms.Application.Restart();
+            }
+        }
+
+        public void AjustementPieceEliminee(List<Piece> lstPieceElimineeAjustement, string NomLabel)
+        {
+            switch(NomLabel)
+            {
+                case "Marechal": lblMarechal.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "General":
+                    lblGeneral.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Colonel":
+                    lblColonel.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Commandant":
+                    lblCommandant.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Capitaine":
+                    lblCapitaine.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Lieutenant":
+                    lblLieutenant.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Sergent":
+                    lblSergent.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Demineur":
+                    lblDemineur.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Eclaireur":
+                    lblEclaireur.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Espion":
+                    lblEspion.Content = lstPieceElimineeAjustement.Count();
+                    break;
+                case "Bombe":
+                    lblBombe.Content = lstPieceElimineeAjustement.Count();
+                    break;
             }
         }
     }
