@@ -171,7 +171,10 @@ namespace Stratego
                                                         , new Eclaireur(Couleur.Bleu), new Commandant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Marechal(Couleur.Bleu), new Commandant(Couleur.Bleu), new Capitaine(Couleur.Bleu), new Demineur(Couleur.Bleu), new Bombe(Couleur.Bleu), new Sergent(Couleur.Bleu)
                                                         , new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Demineur(Couleur.Bleu), new Lieutenant(Couleur.Bleu), new Eclaireur(Couleur.Bleu), new Colonel(Couleur.Bleu), new Espion(Couleur.Bleu), new General(Couleur.Bleu), new Bombe(Couleur.Bleu)
                                                         };
-                IA.PreparerPositionsPieces(piecesBleues);
+                if(CouleurJoueur == Couleur.Rouge)
+                    IA.PreparerPositionsPieces(piecesBleues);
+                else
+                    IA.PreparerPositionsPieces(piecesRouges);
             }
             else
             {
@@ -200,7 +203,7 @@ namespace Stratego
                                                         , new Commandant(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Commandant(Couleur.Rouge), new Espion(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Bombe(Couleur.Rouge), new Sergent(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Eclaireur(Couleur.Rouge)
                                                         , new Commandant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Demineur(Couleur.Rouge), new Sergent(Couleur.Rouge), new Bombe(Couleur.Rouge), new Drapeau(Couleur.Rouge), new Bombe(Couleur.Rouge), new Bombe(Couleur.Rouge), new Demineur(Couleur.Rouge)
                                                         };
-                    IA.PreparerPositionsPieces(piecesBleues);
+                    IA.PreparerPositionsPieces(piecesRouges);
                 }
             }
 
