@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
+    /// <summary>
+    /// Une piece de type bombe
+    /// </summary>
    public class Bombe : Piece
    {
  

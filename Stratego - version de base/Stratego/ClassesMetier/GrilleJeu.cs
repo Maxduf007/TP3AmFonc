@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace Stratego
 {
+    /// <summary>
+    /// Une grille de jeu contenant des caseJeu
+    /// </summary>
    public class GrilleJeu
    {
       #region Static
@@ -24,6 +27,9 @@ namespace Stratego
          InitialiserGrille();
       }
 
+        /// <summary>
+        /// Permet d'initialiser une grille de 10 par 10 ayant des caseJeu initialisé avec des voisins et un type de terrain
+        /// </summary>
       private void InitialiserGrille()
       {
          List<CaseJeu> colonne;
@@ -54,6 +60,9 @@ namespace Stratego
          LierCasesGrille();
       }
 
+        /// <summary>
+        /// Lie chaque CaseJeu de la grille avec ses voisins le cas écheant.
+        /// </summary>
       private void LierCasesGrille()
       {
          for (int i = 0; i < TAILLE_GRILLE_JEU; i++)
@@ -123,8 +132,17 @@ namespace Stratego
             }
          }
       }
-
-      public ReponseDeplacement ResoudreDeplacement(Coordonnee coordonneeDepart, Coordonnee coordonneeCible)
+        /// <summary>
+        /// Vérifie si les coordonnées de départ et cible sont valide pour le déplacement d'une pièce.
+        /// Par exemple, si la coordonnéeCible pointe sur une caseJeuCible ayant un lac, déplacement ne sera pas valide
+        /// et on fait recommencer la sélection au joueur.
+        /// Autre exemple, si le joueur sélectionne une caseJeu qui ne lui appartient pas, on lui fait recommencer sa sélection.
+        /// 
+        /// </summary>
+        /// <param name="coordonneeDepart">coordonnée de départ de la pièce déplacée venant de la GrillePartie</param>
+        /// <param name="coordonneeCible">coordonnée cible de la pièce déplacée venant de la GrillePartie</param>
+        /// <returns></returns>
+        public ReponseDeplacement ResoudreDeplacement(Coordonnee coordonneeDepart, Coordonnee coordonneeCible)
       {
          ReponseDeplacement reponse = new ReponseDeplacement();
          reponse.PiecesEliminees = new List<Piece>();
@@ -147,6 +165,7 @@ namespace Stratego
 
                caseDepart.Occupant = null;
 
+                    // Si la pièce éliminée est un drapeau, on termine la partie.
                     if(reponse.PiecesEliminees.Count > 0 && reponse.PiecesEliminees[0] is Drapeau)
                         reponse.FinPartie = true;
 
@@ -165,7 +184,14 @@ namespace Stratego
          return reponse;
       }
 
-      public bool EstDeplacementPermis(Coordonnee coordonneeDepart, Coordonnee coordonneeCible)
+        /// <summary>
+        /// Vérifie si les coordonnées données sont à l'intérieur des limites de la taille de GrilleJeu, que les coordonnées ne sont pas des lacs
+        /// et que le déplacement ce fait sans conflit entre la case de départ et la case cible.
+        /// </summary>
+        /// <param name="coordonneeDepart">coordonnée de départ venant de la GrillePartie</param>
+        /// <param name="coordonneeCible">coordonnée cible venant de la GrillePartie</param>
+        /// <returns></returns>
+        public bool EstDeplacementPermis(Coordonnee coordonneeDepart, Coordonnee coordonneeCible)
       {
 
         return ( EstCoordonneeValide(coordonneeDepart) && EstCoordonneeValide(coordonneeCible)
@@ -175,6 +201,11 @@ namespace Stratego
 
       }
 
+        /// <summary>
+        /// Vérifie que la coordonnée passée en paramètre est situé dans les limites de la GrilleJeu
+        /// </summary>
+        /// <param name="c">coordonnée à vérifier </param>
+        /// <returns></returns>
       private bool EstCoordonneeValide(Coordonnee c)
       {
          if ((c.X >= 0 && c.X < TAILLE_GRILLE_JEU) && (c.Y >= 0 && c.Y < TAILLE_GRILLE_JEU))
@@ -187,6 +218,11 @@ namespace Stratego
          }
       }
 
+        /// <summary>
+        /// Vérifie si la coordonnée correspond avec une caseJeu de type lac
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
       public bool EstCoordonneeLac(Coordonnee c)
       {
          // Coordonnées des lacs : I (2, 3, 6, 7) - J (4, 5)
@@ -200,11 +236,23 @@ namespace Stratego
          }
       }
 
+        /// <summary>
+        /// Vérifie si la case référée par la coordonnée en paramètre est occupé par une pièce
+        /// </summary>
+        /// <param name="c">coordonnée de la GrillePartie</param>
+        /// <returns></returns>
       public bool EstCaseOccupee(Coordonnee c)
       {
          return ((GrilleCases[(int)c.X][(int)c.Y]).EstOccupe());
       }
 
+        /// <summary>
+        /// Effectue le positionnement de chaque pion selon le joueur à placer dans la GrilleJeu. 
+        /// Un décalage de 6 est effectuer sur l'axe y pour commencer le positionnement des pièces du joueur humain en bas.
+        /// </summary>
+        /// <param name="lstPieces">Liste de pièce d'un joueur à positionner</param>
+        /// <param name="PositionnementJoueur">true = on positionne le joueur false = on positionne l'IA</param>
+        /// <returns></returns>
       public bool PositionnerPieces(List<Piece> lstPieces, bool PositionnementJoueur)
       {
          bool positionnementApplique = false;
@@ -237,6 +285,11 @@ namespace Stratego
          return positionnementApplique;
       }
 
+        /// <summary>
+        /// Vérifie si le positionnement d'une pièce lors du tour de positionnement d'un joueur a bien été effectué
+        /// </summary>
+        /// <param name="couleurJoueur">Couleur du joueur en positionnement</param>
+        /// <returns></returns>
       private bool PositionnementFait(Couleur couleurJoueur)
       {
          bool pieceTrouvee = false;
@@ -261,16 +314,31 @@ namespace Stratego
          return pieceTrouvee;
       }
 
+        /// <summary>
+        /// Retourne la pièce qui occupe la caseJeu référée par la coordonnée
+        /// </summary>
+        /// <param name="c">coordonnée de la case dans la GrillePartie</param>
+        /// <returns></returns>
       public Piece ObtenirPiece(Coordonnee c)
       {
          return GrilleCases[(int)c.X][(int)c.Y].Occupant;
       }
 
-      public Couleur ObtenirCouleurPiece(Coordonnee c)
+        /// <summary>
+        /// Retourne la couleur de la pièce qui occupe la caseJeu référée par la coordonnée
+        /// </summary>
+        /// <param name="c">coordonnée de la case dans la GrillePartie</param>
+        /// <returns></returns>
+        public Couleur ObtenirCouleurPiece(Coordonnee c)
       {
          return GrilleCases[(int)c.X][(int)c.Y].Occupant.couleur;
       }
 
+        /// <summary>
+        /// Retourne la coordonnée de l'emplacement de la caseJeu
+        /// </summary>
+        /// <param name="caseJeuReferee">la caseJeu qu'on veut obtenir sa coordonnée</param>
+        /// <returns></returns>
         public Coordonnee ObtenirCoordonneeCaseJeu(CaseJeu caseJeuReferee)
         {
 

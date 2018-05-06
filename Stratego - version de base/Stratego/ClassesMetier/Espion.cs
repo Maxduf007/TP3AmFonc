@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
-   public class Espion : PieceMobile
+    /// <summary>
+    /// Une piece mobile de type espion
+    /// </summary>
+    public class Espion : PieceMobile
    {
       public Espion(Couleur couleurPiece) : base(couleurPiece, 1)
       {                       

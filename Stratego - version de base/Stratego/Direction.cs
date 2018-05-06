@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
+    /// <summary>
+    /// Classe contenant les directions possibles.
+    /// Utiliser pour les caseJeu.
+    /// </summary>
     public enum Direction
     {
         Avant,

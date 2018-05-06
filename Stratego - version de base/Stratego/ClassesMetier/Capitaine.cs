@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
-   public class Capitaine : PieceMobile
+    /// <summary>
+    /// Une piece mobile de type capitaine
+    /// </summary>
+    public class Capitaine : PieceMobile
    {
       public Capitaine(Couleur couleurPiece) : base(couleurPiece, 6)
       {    

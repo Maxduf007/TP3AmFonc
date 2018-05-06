@@ -8,6 +8,9 @@ using System.Windows;
 
 namespace Stratego
 {
+    /// <summary>
+    /// Une case de jeu qui connait ses voisins dans une grille de jeu.
+    /// </summary>
     public class CaseJeu
     {
         public CaseJeu VoisinAvant { get; set; }
@@ -19,16 +22,28 @@ namespace Stratego
 
         public string TypeCase { get; set; }
 
+        /// <summary>
+        /// Contruction de la case que l'on défini par soit un terrain ou un lac
+        /// </summary>
+        /// <param name="type"> type qui représente le type de case, donc soit un terrain ou un lac</param>
         public CaseJeu(string type)
         {
             TypeCase = type;
         }
 
+        /// <summary>
+        /// Retourne une réponse vrai ou faux si la case est occupée par un 
+        /// </summary>
+        /// <returns></returns>
         public bool EstOccupe()
         {
             return (Occupant != null);
         }
 
+        /// <summary>
+        /// Retourne une réponse vrai ou faux si la CaseJeu est vide
+        /// </summary>
+        /// <returns></returns>
         public bool EstNull()
         {
             if (VoisinArriere == null || VoisinAvant == null || VoisinDroite == null || VoisinGauche == null)
@@ -38,6 +53,12 @@ namespace Stratego
             
         }
 
+        /// <summary>
+        /// Lorsqu'une pièce attaquante est déplacé, on vérifie si la case est libre ou contient une pièce adverse.
+        /// Si c'est le cas, on vérfie qu'elle pièce est gagnante du combat selon sa force ou son habiletés.
+        /// </summary>
+        /// <param name="attaquant"> la pièce attaquante </param>
+        /// <returns></returns>
       public List<Piece> ResoudreAttaque(PieceMobile attaquant)
       {
          List<Piece> piecesEliminees = new List<Piece>();
@@ -99,6 +120,11 @@ namespace Stratego
          return piecesEliminees;
       }
 
+        /// <summary>
+        /// Retourne une réponse vrai ou faux si une case est voisine d'une autre case
+        /// </summary>
+        /// <param name="caseCible"> case qu'on vérifie si elle est voisine de la case actuelle </param>
+        /// <returns></returns>
       public bool EstVoisineDe(CaseJeu caseCible)
       {
          if ( caseCible != null
@@ -114,6 +140,12 @@ namespace Stratego
          }
       }
 
+        /// <summary>
+        /// Retourne une réponse vrai ou faux si le déplacement n'entre pas en conflit avec une case occupé ou non voisine de la
+        /// case actuelle
+        /// </summary>
+        /// <param name="caseCible">Case sur laquelle le pion sera positionnée</param>
+        /// <returns></returns>
       public bool EstDeplacementLegal(CaseJeu caseCible)
       {
          bool resultat = false;
@@ -145,11 +177,19 @@ namespace Stratego
             return resultat;
       }
 
+        /// <summary>
+        /// Vérifie le chemin du pion case par case et vérifie qu'il n'est pas déjà occupé. Si la CaseCible est atteinte sans 
+        /// problème, on autorise le déplacement. Fonction utilisée surtout pour l'éclaireur.
+        /// </summary>
+        /// <param name="caseJeuVoisin"></param>
+        /// <param name="caseCible"></param>
+        /// <param name="directionVoisin"></param>
+        /// <returns></returns>
         public bool AtteindreCaseCibleValide(CaseJeu caseJeuVoisin, CaseJeu caseCible, Direction directionVoisin)
         {
 
             // On vérifie chaque case voisin
-            // Elle ne doit pas être null, que si la cible est occupé ne soit pas occupé par une même couleur de pion et que le chemin de l'éclaireur ne doit pas occupé par un pion
+            // Elle ne doit pas être null, que si la cible est occupé ne soit pas occupé par une même couleur de pion et que le chemin de l'éclaireur ne doit pas être occupé par un pion
             while (caseJeuVoisin != null && ((caseCible.EstOccupe() && !caseCible.Occupant.EstDeCouleur(Occupant.couleur)) || !caseCible.EstOccupe()) && (!caseJeuVoisin.EstOccupe() || caseJeuVoisin == caseCible))
             {
                 

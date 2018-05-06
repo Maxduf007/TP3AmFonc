@@ -55,6 +55,11 @@ namespace Stratego
 
         //public IA_Stratego(JeuStrategoControl jeu) : this(jeu, Couleur couleur) { }
 
+            /// <summary>
+            /// Constructeur de l'IA où l'on initialise la partie dans lequel il joue et sa couleur.
+            /// </summary>
+            /// <param name="jeu">le jeuStrategoControl dans lequel l'IA va intéragir</param>
+            /// <param name="couleur">la couleur qui lui est imposé</param>
       public IA_Stratego(JeuStrategoControl jeu, Couleur couleur)
       {
          Jeu = jeu;
@@ -64,6 +69,10 @@ namespace Stratego
          jeu.Subscribe(this);
       }
 
+        /// <summary>
+        /// l'IA prend au hasard un coup à jouer parmi la liste des coups permis.
+        /// </summary>
+        /// <param name="jeu">Le jeu dans lequel le coup est effectué par l'IA</param>
       private void JouerCoup(JeuStrategoControl jeu)
       {
             ReponseDeplacement reponse = new ReponseDeplacement();
@@ -79,6 +88,11 @@ namespace Stratego
 
       }
 
+        /// <summary>
+        /// Vérifie dans toutes la grille du jeu tous les coups possibles de chaque case et retourne une liste des coups permis par l'IA
+        /// </summary>
+        /// <param name="grillePartie">la GrilleJeu de la partie</param>
+        /// <returns></returns>
       private List<List<Coordonnee>> TrouverCoupsPermis(GrilleJeu grillePartie)
       {
          List<List<Coordonnee>> listeCoups = new List<List<Coordonnee>>();
@@ -127,6 +141,11 @@ namespace Stratego
          return listeCoups;
       }
 
+        /// <summary>
+        /// Replace de façon aléatoire les pièces de LstPieceDisponible pour l'IA. Par contre, le positionnement doit 
+        /// respecter 4 conditions qui ont été mentionné au dessus de la déclaration de la classe.
+        /// </summary>
+        /// <param name="LstPieceDisponible">la liste de pièce à repositionner</param>
         public void PreparerPositionsPieces(List<Piece> LstPieceDisponible)
         {
             Random rnd = new Random(DateTime.Now.Millisecond);
@@ -252,6 +271,12 @@ namespace Stratego
            
         }
 
+        /// <summary>
+        /// Place les bombes selon les règles définis au début de la déclaration de classe. 
+        /// </summary>
+        /// <param name="tabPiecePositionnee">tableau temporaire pour les nouvelles positions des pièces</param>
+        /// <param name="LstPieceDisponible">liste de pièces qui reste à placer</param>
+        /// <param name="coordonneeDrapeau">la coordonnée du drapeau dans le tableau temporaire pour l'entourer de bombes</param>
         private void PositionnerBombesAutourDrapeau(Piece[,] tabPiecePositionnee, List<Piece> LstPieceDisponible, Coordonnee coordonneeDrapeau)
         {
             Bombe BombeDispo = new Bombe(CouleurIA);
