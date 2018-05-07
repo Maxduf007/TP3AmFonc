@@ -82,6 +82,12 @@ namespace Stratego
 
         private IA_Stratego IA { get; set; }
 
+        /// <summary>
+        /// Initialise l'interface du jeu pour une nouvelle partie
+        /// </summary>
+        /// <param name="couleurJoueur">Couleur du joueur choisi lors de la configuration du jeu</param>
+        /// <param name="TabPiecePositionJoueur">Les pièces positionnées par le joueur</param>
+        /// <param name="mainWindow">Pour intérargir les fonctionnalités du MainWindow</param>
         public JeuStrategoControl(Couleur couleurJoueur, Piece[,] TabPiecePositionJoueur, MainWindow mainWindow)
         {
             CouleurJoueur = couleurJoueur;
@@ -142,22 +148,20 @@ namespace Stratego
             TourJeu = Couleur.Rouge;
 
 
-
-
-
         }
 
         /// <summary>
         /// Cette méthode existe principalement pour que le jeu soit testable.
         /// On ne veut évidemment pas toujours commencer une partie avec exactement les même positions.
         /// </summary>
+        /// <param name="TabPiecePositionJoueur">Les pièces positionnées par le joueur dans la configuration de partie</param>
         private void PositionnerPieces(Piece[,] TabPiecePositionJoueur)
         {
             List<Piece> piecesRouges = new List<Piece>();
             List<Piece> piecesBleues = new List<Piece>();
 
-            // À modifier, mais permet faire des tests
-            if (TabPiecePositionJoueur.GetValue(0, 0) == null)
+            
+            if (TabPiecePositionJoueur.GetValue(0, 0) == null)//  Permet de faire des tests
             {
 
                 piecesRouges = new List<Piece>() { new Marechal(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Lieutenant(Couleur.Rouge), new Demineur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Eclaireur(Couleur.Rouge), new Capitaine(Couleur.Rouge)
@@ -223,7 +227,9 @@ namespace Stratego
 
 
         }
-
+        /// <summary>
+        /// Crée la structure de la grid en grille de 10*10
+        /// </summary>
         private void DiviserGrilleJeu()
         {
             ColumnDefinition colonneDef;
@@ -241,6 +247,9 @@ namespace Stratego
             }
         }
 
+        /// <summary>
+        /// Ajoute de la coloration à chaque case selon son type de terrain et ajoute des lignes verticalement et horizontalement.
+        /// </summary>
         private void ColorerGrilleJeu()
         {
             Rectangle ligne;
@@ -269,6 +278,12 @@ namespace Stratego
             grdPartie.Children.Add(ligne);
         }
 
+        /// <summary>
+        /// Crée une ligne selon la position verticale ou horizontale demandée.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="estColonne">Indique si la ligne doit être créée horizontalement ou verticalement</param>
+        /// <returns></returns>
         private Rectangle CreerLigneGrille(int position, bool estColonne)
         {
             Rectangle ligne = new Rectangle();
@@ -297,6 +312,12 @@ namespace Stratego
             return ligne;
         }
 
+        /// <summary>
+        /// Crée un fond selon le type de terrain que la case est. 
+        /// </summary>
+        /// <param name="colonne">L'axe x dans lequel la case est positionnée.</param>
+        /// <param name="rangee">L'axe y dans lequel la case est positionnée.</param>
+        /// <returns></returns>
         private Rectangle CreerFondCase(int colonne, int rangee)
         {
             Rectangle rect = new Rectangle();
@@ -320,6 +341,10 @@ namespace Stratego
             return rect;
         }
 
+        /// <summary>
+        /// Crée un rectangle de sélection pour chaque case et y insère une fonction pour activé la sélection de la case
+        /// lorsque le joueur clic avec la souris.
+        /// </summary>
         private void DefinirZoneSelectionGrille()
         {
             Rectangle rect;
@@ -346,6 +371,9 @@ namespace Stratego
 
         }
 
+        /// <summary>
+        /// Crée le rectangle de sélection visuel pour indiquer au joueur qu'il a bien sélectionné une tel case.
+        /// </summary>
         private void InitialiserSelectionActive()
         {
             SelectionActive = new Rectangle();
@@ -358,6 +386,9 @@ namespace Stratego
             Grid.SetZIndex(SelectionActive, 3);
         }
 
+        /// <summary>
+        /// Place l'affichage de chaque pièce dans la gille du jeu (la grid)
+        /// </summary>
         private void InitialiserAffichagePieces()
         {
             Coordonnee position;
@@ -392,6 +423,12 @@ namespace Stratego
             }
         }
 
+        /// <summary>
+        /// Retourne la source de l'image selon son type et son état de visibilité
+        /// </summary>
+        /// <param name="couleur"></param>
+        /// <param name="pieceAAfficher"></param>
+        /// <returns></returns>
         private string RetournerNomSourceImage(Couleur couleur, Piece pieceAAfficher)
         {
             string nomPiece;
@@ -410,7 +447,7 @@ namespace Stratego
             nomPiece = nomPiece.ToLower();
 
             // Si la pièce dans le jeu n'a pas été révélé, on la cache.
-            /*if (pieceAAfficher.EstRevele || pieceAAfficher.couleur == CouleurJoueur)
+            if (pieceAAfficher.EstRevele || pieceAAfficher.couleur == CouleurJoueur)
             {
                 // On s'assure que le nom de la pièce soit en minuscule
                 nomPiece = pieceAAfficher.GetType().ToString();
@@ -421,7 +458,7 @@ namespace Stratego
             else
             {
                 nomPiece = "endos";
-            }*/
+            }
 
             // On l'ajoute 
             nomImageSource.Append(nomPiece);
@@ -436,12 +473,16 @@ namespace Stratego
 
             return nomImageSourceFinal;
         }
-
+        /// <summary>
+        /// Crée l'image dans la grille de jeu.
+        /// </summary>
+        /// <param name="pieceAffichage">La pièce avec laquelle on y crée une image dans la grille</param>
+        /// <returns></returns>
         private Image CreerAffichagePiece(Piece pieceAffichage)
         {
             Image ImageAffichage = new Image();
             BitmapImage bitmap = new BitmapImage();
-            // Sert seulement à aller chercher des fonctions
+
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(RetournerNomSourceImage(pieceAffichage.couleur, pieceAffichage), UriKind.Relative);
             bitmap.EndInit();
@@ -457,9 +498,18 @@ namespace Stratego
             return ImageAffichage;
         }
 
+        // TODO: lorsqu'un pion adverse attaque et est éliminé, l'update se fait pas. Et si le pion adverse gagne, le update se fait donc mauvais.
+        /// <summary>
+        /// Activé par le clic droit de la souris, cette fonction vérifie la sélection active est présente dans la 
+        /// grille de jeu. La sélection active représente la sélection du pion que le joueur veut déplacer.
+        /// Une fois présente, la fonction vérifie si le joueur veut désélectionner son choix ou déplacer son pion sur une 
+        /// autre case. Dans le cas d'un déplacement, la fonction appelle la fonction ExecuterCoup pour vérifier que ce coup est légal.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResoudreSelectionCase(object sender, MouseButtonEventArgs e)
         {
-            // Reçoit le rectangle sélectionner par la souris
+            // Reçoit le rectangle sélectionné par la souris
             Rectangle caseSelectionnee = (Rectangle)sender;
 
             Coordonnee pointSelectionne = new Coordonnee(Grid.GetColumn(caseSelectionnee), Grid.GetRow(caseSelectionnee));
@@ -511,6 +561,14 @@ namespace Stratego
             }
         }
 
+        /// <summary>
+        /// Si le coup est illégal, la fonction renvoi une réponse de déplacement négative pour laisser le joueur retenter un
+        /// nouveau coup. Selon le résultat de la fonction ResoudreDeplacement, la fonction élimine de la GrillePartie et
+        /// de la grid le pion vaincu.
+        /// </summary>
+        /// <param name="caseDepart">Coordonnée de la caseJeu sur laquelle le pion commence son déplacement</param>
+        /// <param name="caseCible">Coordonnée de la  caseJeu sur laquelle le pion termine son déplacement</param>
+        /// <returns></returns>
         public ReponseDeplacement ExecuterCoup(Coordonnee caseDepart, Coordonnee caseCible)
         {
             Thread executionIA = new Thread(LancerIA);
@@ -543,7 +601,8 @@ namespace Stratego
                         grdPartie.Children.Remove(GrillePieces[(int)caseCible.X][(int)caseCible.Y]);
                         GrillePieces[(int)caseCible.X][(int)caseCible.Y] = null;
 
-                        MettreAJourPionAdverseEliminees(reponse);
+                        if(TourJeu == CouleurJoueur)
+                            MettreAJourPionAdverseEliminees(reponse);
                     }
                     else if (reponse.PiecesEliminees.Count == 1 && reponse.PiecesEliminees[0] != attaquant
                             || reponse.PiecesEliminees.Count == 0)
@@ -557,7 +616,8 @@ namespace Stratego
                         {
                             attaquant.EstRevele = true;
                             affichageAttaquant = CreerAffichagePiece(attaquant);
-                            MettreAJourPionAdverseEliminees(reponse);
+                            if(TourJeu == CouleurJoueur)
+                                MettreAJourPionAdverseEliminees(reponse);
                         }
 
                         GrillePieces[(int)caseCible.X][(int)caseCible.Y] = affichageAttaquant;
@@ -572,6 +632,8 @@ namespace Stratego
                     {
                         Piece Occupant = GrillePartie.ObtenirPiece(caseCible);
 
+                        if (TourJeu != CouleurJoueur)
+                            MettreAJourPionAdverseEliminees(reponse);
 
                         // On révèle les informations de la pièce attaqué.
                         Occupant.EstRevele = true;
@@ -605,13 +667,15 @@ namespace Stratego
             return reponse;
         }
 
+        /// <summary>
+        /// Détient une liste dans laquelle la fontion emmagasine les pièces de l'IA éliminées. De plus, il appelle
+        /// la fonction du mainWindow pour mettre à jour l'affichage des pièces éliminées.
+        /// </summary>
+        /// <param name="reponse"></param>
         private void MettreAJourPionAdverseEliminees(ReponseDeplacement reponse)
         {
             List<Piece> LstPieceElimineeAjustement = new List<Piece>();
             StringBuilder StrBuilderLblNom = new StringBuilder();
-            // On crée un predicat pour vérifier dans LstPiecesEliminees si la pièce adverse qui vient d'être éliminée
-            // a un type qui correspond à une autre pièce éliminée dans la liste.
-            Predicate<Piece> PredicatePiece = (Piece p) => { return p == reponse.PiecesEliminees[0]; }; //lambda
 
             // On ajoute la piece éliminée de ce tour dans les pièces éliminées de la partie
             
