@@ -22,6 +22,11 @@ namespace Stratego
     {
         public JeuStrategoControl Jeu { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CouleurJoueur"></param>
+        /// <param name="TabPiecePositionJoueur"></param>
         public MainWindow(Couleur CouleurJoueur, Piece[,] TabPiecePositionJoueur)
         {
             InitializeComponent();

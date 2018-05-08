@@ -701,6 +701,9 @@ namespace Stratego
                 
            
         }
+        /// <summary>
+        /// Fonction pour lancer l'IA pour qu'il joue son coup. 
+        /// </summary>
       private void LancerIA()
       {
          // Pause d'une seconde, pour permettre à l'humain de mieux comprendre le déroulement.
@@ -712,6 +715,9 @@ namespace Stratego
          });
       }
 
+        /// <summary>
+        /// Permet de changer le tour de jouer entre le joueur et l'IA
+        /// </summary>
       public void ChangerTourJeu()
       { 
          if (TourJeu == Couleur.Rouge)
@@ -724,6 +730,10 @@ namespace Stratego
          }
       }
 
+        /// <summary>
+        /// Lorsque le pion Drapeau d'un des 2 joueurs est éliminé, la fonction est appelé pour mettre fin 
+        /// à la partie et dévoiler le gagnant.
+        /// </summary>
         public void FinPartie()
         {
             MessageBoxResult resultat;
