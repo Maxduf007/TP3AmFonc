@@ -33,6 +33,9 @@ namespace Stratego
         private const int TAILLE_GRILLE_POSITIONNEMENT_Y = 4;
         #endregion
 
+        /// <summary>
+        /// Initialise le fenêtre avec ses composantes. 
+        /// </summary>
         public NouvellePartieWindow()
         {
             InitializeComponent();
@@ -43,6 +46,11 @@ namespace Stratego
             DefinirZoneSelectionGrille();
         }
 
+        /// <summary>
+        /// Bouton qui lance la partie en créant une fenêtre mainWindow et en lui passant les paramètres sélectionnés par le joueur comme sa couleur et le positionnement de ses pions.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLancerPartie_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow(CouleurJoueurChoisi, TabPieceJoueurPositionnee);
@@ -55,6 +63,11 @@ namespace Stratego
 
         }
 
+        /// <summary>
+        /// Permet au joueur de sélectionner sa couleur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioButtonChecked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = (RadioButton) sender;
@@ -69,9 +82,9 @@ namespace Stratego
         }
 
         /// <summary>
-        /// Initialise l'objet ayant le type demandé par le joueur pour son positionnement dans le jeu
+        /// Initialise l'objet ayant le type demandé par le joueur pour son positionnement dans le jeu.
         /// </summary>
-        /// <param name="NomPion"> reçoit le nom du pion pour sélectionner le bon type</param>
+        /// <param name="NomPion"> reçoit le nom du pion pour sélectionner le bon type.</param>
         private void TypePieceSelectionnee(string NomPion)
         {
             switch (NomPion)
@@ -118,6 +131,11 @@ namespace Stratego
             }
         }
 
+        /// <summary>
+        /// Fonction qui gère les boutons de placement des pièces. S'assure de mettre à jour le bon nombre restant de pièces à placer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPlacerUnite_Click(object sender, RoutedEventArgs e)
         {
             Button PionBoutton = (Button)sender;
@@ -139,6 +157,11 @@ namespace Stratego
 
         }
 
+        /// <summary>
+        /// Permet de placer ou enlever le pion dans la grille de positionnement. Vérifie qu'une case est libre pour la pièce.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PositionnerPionGrille(object sender, MouseButtonEventArgs e)
         {
             // Reçoit le rectangle sélectionner par la souris
@@ -191,6 +214,10 @@ namespace Stratego
 
         }
 
+        /// <summary>
+        /// Réajuste le nombre de pion dans son label lorsque le joueur enlève un pion de la grille.
+        /// </summary>
+        /// <param name="PieceSupprimee">Ladite pièce qui faut remettre dans les pièces disponibles</param>
         private void RemettrePionDansChoix(Piece PieceSupprimee)
         {
             StringBuilder NomBouton = new StringBuilder();
@@ -211,6 +238,9 @@ namespace Stratego
 
         }
 
+        /// <summary>
+        /// Crée la structure de la grid en grille de 10*4
+        /// </summary>
         private void DiviserGrillePositionnement()
         {
             ColumnDefinition colonneDef;
@@ -232,6 +262,9 @@ namespace Stratego
             }
         }
 
+        /// <summary>
+        /// Ajoute de la coloration à chaque case selon son type de terrain et ajoute des lignes verticalement et horizontalement.
+        /// </summary>
         private void ColorerGrilleJeu()
         {
             Rectangle ligne;
@@ -260,6 +293,12 @@ namespace Stratego
             grdPlacementPion.Children.Add(ligne);
         }
 
+        /// <summary>
+        /// Crée un fond selon le type de terrain que la case est. 
+        /// </summary>
+        /// <param name="colonne">L'axe x dans lequel la case est positionnée.</param>
+        /// <param name="rangee">L'axe y dans lequel la case est positionnée.</param>
+        /// <returns></returns>
         private Rectangle CreerFondCase(int colonne, int rangee)
         {
             Rectangle rect = new Rectangle();
@@ -276,6 +315,12 @@ namespace Stratego
             return rect;
         }
 
+        /// <summary>
+        /// Crée une ligne selon la position verticale ou horizontale demandée.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="estColonne">Indique si la ligne doit être créée horizontalement ou verticalement</param>
+        /// <returns></returns>
         private Rectangle CreerLigneGrille(int position, bool estColonne)
         {
             Rectangle ligne = new Rectangle();
@@ -304,6 +349,11 @@ namespace Stratego
             return ligne;
         }
 
+        /// <summary>
+        /// Crée l'image dans la grille de jeu.
+        /// </summary>
+        /// <param name="pieceAffichage">La pièce avec laquelle on y crée une image dans la grille</param>
+        /// <returns></returns>
         private Image CreerAffichagePiece(Piece pieceAffichage)
         {
             Image ImageAffichage = new Image();
@@ -324,6 +374,13 @@ namespace Stratego
             return ImageAffichage;
         }
 
+
+        /// <summary>
+        /// Retourne la source de l'image selon son type et son état de visibilité
+        /// </summary>
+        /// <param name="couleur"></param>
+        /// <param name="pieceAAfficher"></param>
+        /// <returns></returns>
         private string RetournerNomSourceImage(Couleur couleur, Piece pieceAAfficher)
         {
             // On met le chemin relatif de l'image
@@ -354,6 +411,10 @@ namespace Stratego
             return nomImageSourceFinal;
         }
 
+        /// <summary>
+        /// Crée un rectangle de sélection pour chaque case et y insère une fonction pour activé la sélection de la case
+        /// lorsque le joueur clic avec la souris.
+        /// </summary>
         private void DefinirZoneSelectionGrille()
         {
             Rectangle rect;

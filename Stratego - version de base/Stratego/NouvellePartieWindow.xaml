@@ -18,11 +18,13 @@
         </Grid.RowDefinitions>
 
         <Grid Name="grdPlacementPion" Margin="0,45,0,0">
-            
+
         </Grid>
-        <Button Name="btnLancerPartie" Content="Lancer" HorizontalAlignment="Left" Height="25" Margin="158,24,0,0" VerticalAlignment="Top" Width="77" Click="btnLancerPartie_Click" Grid.Row="1"/>
-        <RadioButton Name="rdbRouge" GroupName="couleurJoueur" Content="Rouge" HorizontalAlignment="Left" Margin="45,17,0,0" VerticalAlignment="Top" IsChecked="True" Checked="RadioButtonChecked" Grid.Row="1"/>
-        <RadioButton Name="rdbBleu" GroupName="couleurJoueur" Content="Bleu" HorizontalAlignment="Left" Margin="45,37,0,0" VerticalAlignment="Top"  Checked="RadioButtonChecked" Grid.Row="1"/>
+        <Label Content="Pour supprimer une pièce, effectuer un clic gauche sur celle-ci." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="346" Grid.Row="1"/>
+
+        <Button Name="btnLancerPartie" Content="Lancer" HorizontalAlignment="Left" Height="25" Margin="151,56,0,0" VerticalAlignment="Top" Width="77" Click="btnLancerPartie_Click" Grid.Row="1"/>
+        <RadioButton Name="rdbRouge" GroupName="couleurJoueur" Content="Rouge" HorizontalAlignment="Left" Margin="44,53,0,0" VerticalAlignment="Top" IsChecked="True" Checked="RadioButtonChecked" Grid.Row="1"/>
+        <RadioButton Name="rdbBleu" GroupName="couleurJoueur" Content="Bleu" HorizontalAlignment="Left" Margin="44,73,0,0" VerticalAlignment="Top"  Checked="RadioButtonChecked" Grid.Row="1"/>
 
         <Label Content="Configuration" FontSize="18" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Height="37" Width="134"/>
 

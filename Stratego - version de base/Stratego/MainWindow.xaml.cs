@@ -23,10 +23,10 @@ namespace Stratego
         public JeuStrategoControl Jeu { get; set; }
 
         /// <summary>
-        /// 
+        /// Initialise la fenêtre
         /// </summary>
-        /// <param name="CouleurJoueur"></param>
-        /// <param name="TabPiecePositionJoueur"></param>
+        /// <param name="CouleurJoueur">Couleur du joueur choisie dans les paramètres du jeu</param>
+        /// <param name="TabPiecePositionJoueur">Liste des pions placés par le joueur dans les paramètres du jeu</param>
         public MainWindow(Couleur CouleurJoueur, Piece[,] TabPiecePositionJoueur)
         {
             InitializeComponent();
@@ -36,6 +36,11 @@ namespace Stratego
             grdPrincipale.Children.Add(Jeu);
         }
 
+        /// <summary>
+        /// Bouton qui permet de lancer une nouvelle partie. L'application sera redémarrée pour retournée à la fenêtre NouvellePartieWindow.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNouvellePartie_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult resultat;
@@ -53,6 +58,11 @@ namespace Stratego
             }
         }
 
+        /// <summary>
+        /// Ajuste les labels de chaque type de pièce lorsqu'un pièce adverse est éliminée.
+        /// </summary>
+        /// <param name="lstPieceElimineeAjustement">Liste qui contient le nombre d'un type de pièce éliminée de l'adversaire pour faire l'ajustement au label</param>
+        /// <param name="NomLabel">Nom du label qui contient le type de pièce à ajuster</param>
         public void AjustementPieceEliminee(List<Piece> lstPieceElimineeAjustement, string NomLabel)
         {
             switch(NomLabel)
